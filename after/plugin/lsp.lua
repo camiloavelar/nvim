@@ -1,3 +1,14 @@
+require("nvim-lsp-installer").setup({
+    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP keybindings',
   callback = function(event)
@@ -17,49 +28,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 local lspconfig = require('lspconfig')
-local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  ensure_installed = {
-    'tsserver',
-    'lua_ls',
-    'rust_analyzer',
-  },
-  handlers = {
-    function(server)
-      lspconfig[server].setup({
-        capabilities = lsp_capabilities,
-      })
-    end,
-    lua_ls = function()
-      lspconfig.lua_ls.setup({
-        capabilities = lsp_capabilities,
-        settings = {
-          Lua = {
-            runtime = {
-              version = 'LuaJIT',
-            },
-            diagnostics = {
-              globals = {'vim'}
-            },
-            workspace = {
-              library = {
-                vim.env.VIMRUNTIME,
-              }
-            }
-          }
-        }
-      })
-    end
-  }
-})
+lspconfig.tsserver.setup {}
+lspconfig.gopls.setup {}
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
-
---- loads custom snippets from friendly-snippets
--- require('luasnip.loaders.from_vscode').lazy_load()
 
 cmp.setup({
   sources = {

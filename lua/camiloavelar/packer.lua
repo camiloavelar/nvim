@@ -1,24 +1,32 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
 
-  use {
+return require('lazy').setup({
+  {
 	  'nvim-telescope/telescope.nvim', tag = '0.1.4',
-	  -- or                            , branch = '0.1.x',
-	  requires = { {'nvim-lua/plenary.nvim'} }
-  }
+	  dependencies = { {'nvim-lua/plenary.nvim'} }
+  },
 
-  use({
+  {
 	  'rose-pine/neovim',
-	  as = 'rose-pine',
+	  name = 'rose-pine',
 	  config = function()
 		  vim.cmd('colorscheme rose-pine')
 	  end
-  })
+  },
 
-  use({
+  {
       "folke/trouble.nvim",
       config = function()
           require("trouble").setup {
@@ -28,27 +36,23 @@ return require('packer').startup(function(use)
               -- refer to the configuration section below
           }
       end
-  })
+  },
 
-  use {
-			'nvim-treesitter/nvim-treesitter',
-			run = function()
-				local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-				ts_update()
-			end,}
-  use("nvim-treesitter/playground")
-  use("theprimeagen/harpoon")
-  use("theprimeagen/refactoring.nvim")
-  use("mbbill/undotree")
-  use("tpope/vim-fugitive")
-  use("nvim-treesitter/nvim-treesitter-context");
+  {
+      "nvim-treesitter/nvim-treesitter",
+      build = ":TSUpdate",
+  },
+  "nvim-treesitter/playground",
+  "theprimeagen/harpoon",
+  "theprimeagen/refactoring.nvim",
+  "mbbill/undotree",
+  "tpope/vim-fugitive",
+  "nvim-treesitter/nvim-treesitter-context",
 
-  use {
-	  'VonHeikemen/lsp-zero.nvim',
-	  branch = 'v1.x',
-	  requires = {
+  {
+	  'neovim/nvim-lspconfig',
+	  dependencies = {
 		  -- LSP Support
-		  {'neovim/nvim-lspconfig'},
 		  {'williamboman/mason.nvim'},
 		  {'williamboman/mason-lspconfig.nvim'},
 
@@ -64,12 +68,9 @@ return require('packer').startup(function(use)
 		  {'L3MON4D3/LuaSnip'},
 		  {'rafamadriz/friendly-snippets'},
 	  }
-  }
+  },
 
-  use("folke/zen-mode.nvim")
-  use("github/copilot.vim")
-  use("eandrju/cellular-automaton.nvim")
-  use("laytan/cloak.nvim")
-
-end)
+  "folke/zen-mode.nvim",
+  "laytan/cloak.nvim",
+})
 

@@ -1,5 +1,6 @@
 require("camiloavelar.set")
 require("camiloavelar.remap")
+require("camiloavelar.packer")
 
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})

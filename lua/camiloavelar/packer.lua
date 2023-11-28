@@ -53,9 +53,7 @@ return require('lazy').setup({
 	  'neovim/nvim-lspconfig',
 	  dependencies = {
 		  -- LSP Support
-		  {'williamboman/mason.nvim'},
-		  {'williamboman/mason-lspconfig.nvim'},
-
+		  {'williamboman/nvim-lsp-installer'},
 		  -- Autocompletion
 		  {'hrsh7th/nvim-cmp'},
 		  {'hrsh7th/cmp-buffer'},

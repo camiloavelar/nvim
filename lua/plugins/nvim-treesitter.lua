@@ -13,6 +13,8 @@ local config = function()
 		},
 		ensure_installed = {
 			"markdown",
+			"jsonc",
+			"regex",
 			"json",
 			"javascript",
 			"typescript",

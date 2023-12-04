@@ -22,6 +22,7 @@ local config = function()
 			"html",
 			"css",
 			"markdown",
+			"markdown_inline",
 			"bash",
 			"dockerfile",
 			"gitignore",

@@ -126,7 +126,6 @@ local config = function()
 	local shellcheck = require("efmls-configs.linters.shellcheck")
 	local shfmt = require("efmls-configs.formatters.shfmt")
 	local hadolint = require("efmls-configs.linters.hadolint")
-	local solhint = require("efmls-configs.linters.solhint")
 	local cpplint = require("efmls-configs.linters.cpplint")
 	local clangformat = require("efmls-configs.formatters.clang_format")
 
@@ -166,7 +165,7 @@ local config = function()
 				python = { { flake8 }, { black } },
 				typescript = { { eslint }, { prettier_d } },
 				json = { { eslint }, { fixjson } },
-				jsonc = { eslint, fixjson },
+				jsonc = { { eslint }, { fixjson }},
 				sh = { { shellcheck }, { shfmt } },
 				javascript = { { eslint }, { prettier_d } },
 				vue = { { eslint }, { prettier_d } },

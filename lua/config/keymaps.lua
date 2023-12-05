@@ -1,5 +1,6 @@
 local mapkey = require("util.keymapper").mapkey
 
+mapkey("<leader>zz", "ZenMode", "n")
 -- Buffer Navigation
 mapkey("<leader>bn", "bnext", "n") -- Next buffer
 mapkey("<leader>bp", "bprevious", "n") -- Prev buffer

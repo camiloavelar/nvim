@@ -58,6 +58,12 @@ local config = function()
 		},
 	})
 
+  -- golang
+  lspconfig.gopls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
 	-- typescript
 	lspconfig.tsserver.setup({
 		on_attach = on_attach,

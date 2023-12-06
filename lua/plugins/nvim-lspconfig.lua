@@ -41,6 +41,12 @@ local config = function()
 		filetypes = { "json", "jsonc" },
 	})
 
+  -- php
+  lspconfig.intelephense.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+  })
+
 	-- python
 	lspconfig.pyright.setup({
 		capabilities = capabilities,

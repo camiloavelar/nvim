@@ -11,7 +11,7 @@ local config = function()
 		},
 		sections = {
 			lualine_a = { "mode" },
-			lualine_b = { "buffers" },
+			lualine_b = { { "buffers", max_length = vim.o.columns * 2 / 6 } },
       lualine_c = {
         { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available }
       },

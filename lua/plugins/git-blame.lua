@@ -4,7 +4,8 @@ return {
   config = function ()
     require('gitblame').setup {
       enabled = true,
-      date_format = '%x'
+      date_format = '%x',
+      message_when_not_committed = 'Oh please, commit this !',
     }
 
   end,

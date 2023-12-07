@@ -8,7 +8,10 @@ M.on_attach = function(client, bufnr)
 	mapkey("<leader>fd", "Lspsaga finder", "n", opts) -- go to definition
 	mapkey("<leader>gd", "Lspsaga peek_definition", "n", opts) -- peak definition
 	mapkey("<leader>gD", "Lspsaga goto_definition", "n", opts) -- go to definition
-  vim.keymap.set("n", "<leader>gi", function() vim.lsp.buf.implementation() end, opts)
+  mapkey("<leader>gi", "vim.lsp.buf.implementation()", "n", opts)
+  mapkey("<leader>gT", "vim.lsp.buf.type_definition()", "n", opts)
+  mapkey("<leader>gSw", "vim.lsp.buf.workspace_symbol()", "n", opts)
+  mapkey("<leader>gSd", "vim.lsp.buf.document_symbol()", "n", opts)
 	mapkey("<leader>ca", "Lspsaga code_action", "n", opts) -- see available code actions
 	mapkey("<leader>rn", "Lspsaga rename", "n", opts) -- smart rename
 	mapkey("<leader>D", "Lspsaga show_line_diagnostics", "n", opts) -- show  diagnostics for line

@@ -45,6 +45,7 @@ return {
 	config = config,
 	keys = {
 		mapkey("<leader>fk", "Telescope keymaps", "n"),
+		mapkey("<leader>ff", "Telescope harpoon marks", "n"),
 		mapkey("<leader>fh", "Telescope help_tags", "n"),
 		mapkey("<leader>pf", "Telescope find_files", "n"),
 		mapkey("<C-p>", "Telescope git_files", "n"),

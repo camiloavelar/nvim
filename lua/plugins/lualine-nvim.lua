@@ -8,6 +8,9 @@ local config = function()
 			globalstatus = true,
 			component_separators = { left = "|", right = "|" },
 			section_separators = { left = "", right = "" },
+      disabled_filetypes = {
+        "NvimTree"
+      }
 		},
 		sections = {
 			lualine_a = { "mode" },

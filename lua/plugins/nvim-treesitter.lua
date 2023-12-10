@@ -27,12 +27,27 @@ local config = function()
 			"dockerfile",
 			"gitignore",
 			"python",
+      "go"
 		},
 		auto_install = true,
 		highlight = {
 			enable = true,
 			additional_vim_regex_highlighting = true,
 		},
+    textobjects = {
+      select = {
+        enable = true,
+        lookahead = true,
+        keymaps = {
+          ["aa"] = "@parameter.outer",
+          ["ia"] = "@parameter.inner",
+          ["af"] = "@function.outer",
+          ["if"] = "@function.inner",
+          ["ac"] = "@class.outer",
+          ["ic"] = "@class.inner",
+        },
+      },
+    },
 		incremental_selection = {
 			enable = true,
 			keymaps = {
@@ -49,4 +64,8 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	lazy = false,
 	config = config,
+  dependencies = {
+    { "nvim-treesitter/nvim-treesitter-context", config = true },
+    "nvim-treesitter/nvim-treesitter-textobjects",
+  }
 }

@@ -1,6 +1,9 @@
 local mapkey = require("util.keymapper").mapkey
 
 mapkey("<leader>zz", "ZenMode", "n")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true, noremap = true })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true, noremap = true })
+
 -- Buffer Navigation
 mapkey("<leader>bn", "bnext", "n") -- Next buffer
 mapkey("<leader>bp", "bprevious", "n") -- Prev buffer

@@ -13,21 +13,21 @@ local config = function()
 		},
 		pickers = {
 			git_files = {
-				theme = "dropdown",
+				-- theme = "dropdown",
 				previewer = true,
 				hidden = false,
 			},
 			find_files = {
-				theme = "dropdown",
+				-- theme = "dropdown",
 				previewer = true,
 				hidden = false,
 			},
 			live_grep = {
-				theme = "dropdown",
+				-- theme = "dropdown",
 				previewer = true,
 			},
 			buffers = {
-				theme = "dropdown",
+				-- theme = "dropdown",
 				previewer = true,
 			},
 		},

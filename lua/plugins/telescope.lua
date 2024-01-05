@@ -73,4 +73,17 @@ return {
     mapkey("<leader>gi", "Telescope lsp_implementations", "n"),
     mapkey("<leader>gt", "Telescope lsp_type_definitions", "n"),
 	},
+  config = function ()
+    local builtin = require("telescope.builtin")
+
+    vim.keymap.set("n", "<leader>fw", function()
+      local word = vim.fn.expand("<cword>")
+      builtin.grep_string({ search = word })
+    end, { desc = "Search for word under cursor" })
+
+    vim.keymap.set("n", "<leader>fW", function()
+      local word = vim.fn.expand("<cWORD>")
+      builtin.grep_string({ search = word })
+    end, { desc = "Search for full word under cursor" })
+  end
 }

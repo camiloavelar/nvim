@@ -10,19 +10,31 @@ local config = function()
 					["<C-k>"] = "move_selection_previous",
 				},
 			},
-		},
+      file_ignore_patterns = {
+        ".git/",
+        "node_modules",
+        "coverage",
+        "dist",
+        "build",
+        "target",
+        "vendor",
+        "yarn.lock",
+        "package-lock.json",
+      },
+    },
 		pickers = {
 			git_files = {
-				-- theme = "dropdown",
 				previewer = true,
+        hidden = true,
 			},
 			find_files = {
-				-- theme = "dropdown",
 				previewer = true,
+        hidden = true,
+        no_ignore = true,
 			},
 			live_grep = {
-				-- theme = "dropdown",
 				previewer = true,
+        hidden = true
 			},
 			buffers = {
 				-- theme = "dropdown",

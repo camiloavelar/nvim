@@ -1,24 +1,25 @@
 return {
   "folke/todo-comments.nvim",
+  event = "VimEnter",
   keys = {
     {
       "tn",
       function()
         require("todo-comments").jump_next()
       end,
-      desc = "next marked comment",
+      desc = "Next marked comment",
     },
     {
       "tN",
       function()
         require("todo-comments").jump_prev()
       end,
-      desc = "prev marked comment",
+      desc = "Prev marked comment",
     },
     {
       "<leader>ft",
       ":TodoTelescope<CR>",
-      desc = "search todo comments",
+      desc = "Search todo comments",
       silent = true,
     },
   },

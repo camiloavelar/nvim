@@ -67,7 +67,7 @@ return {
 		mapkey("<leader>fs", "Telescope lsp_document_symbols", "n"),
 		mapkey("<leader>gc", "Telescope git_commits", "n"),
 		mapkey("<leader>gb", "Telescope git_branches", "n"),
-		mapkey("<leader>ftt", "Telescope treesitter", "n"),
+		mapkey("<leader>ts", "Telescope treesitter", "n"),
     mapkey("<leader>fd", "Telescope lsp_references", "n"),
     mapkey("<leader>gD", "Telescope lsp_definitions", "n"),
     mapkey("<leader>gi", "Telescope lsp_implementations", "n"),

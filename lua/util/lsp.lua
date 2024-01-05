@@ -5,11 +5,11 @@ local M = {}
 M.on_attach = function(client, bufnr)
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 
-	mapkey("<leader>fd", "Lspsaga finder", "n", opts) -- go to definition
+	-- mapkey("<leader>fd", "Lspsaga finder", "n", opts) -- go to definition
 	mapkey("<leader>gd", "Lspsaga peek_definition", "n", opts) -- peak definition
-	mapkey("<leader>gD", "Lspsaga goto_definition", "n", opts) -- go to definition
-  vim.keymap.set("n", "<leader>gi", function() vim.lsp.buf.implementation() end, opts)
-  vim.keymap.set("n", "<leader>gT", function() vim.lsp.buf.type_definition() end, opts)
+  -- mapkey("<leader>gD", "Lspsaga goto_definition", "n", opts) -- go to definition
+  -- vim.keymap.set("n", "<leader>gi", function() vim.lsp.buf.implementation() end, opts)
+  -- vim.keymap.set("n", "<leader>gT", function() vim.lsp.buf.type_definition() end, opts)
   vim.keymap.set("n", "<leader>gSw", function() vim.lsp.buf.workspace_symbol() end, opts)
   vim.keymap.set("n", "<leader>gSd", function() vim.lsp.buf.document_symbol() end, opts)
 	mapkey("<leader>ca", "Lspsaga code_action", "n", opts) -- see available code actions

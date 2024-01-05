@@ -1,9 +1,12 @@
+local mapkey = require("util.keymapper").mapkey
+
 return {
   'tpope/vim-fugitive',
   lazy = false,
+  keys = {
+    mapkey("<leader>gs", "Git", "n"),
+  },
   config = function ()
-    vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
-
     local CamiloAvelar_Fugitive = vim.api.nvim_create_augroup("CamiloAvelar_Fugitive", {})
     local autocmd = vim.api.nvim_create_autocmd
     autocmd("BufWinEnter", {

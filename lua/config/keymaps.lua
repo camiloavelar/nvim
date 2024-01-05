@@ -10,9 +10,13 @@ mapkey("<leader>bp", "bprevious", "n") -- Prev buffer
 mapkey("<leader>bb", "e #", "n") -- Switch to Other Buffer
 mapkey("<leader>`", "e #", "n") -- Switch to Other Buffer
 
+-- Noice
+mapkey("<leader>fn", "Noice telescope", "n")
+mapkey("<leader>q", "Noice dismiss", "n")
+
 -- Directory Navigatio}n
 mapkey("<leader>m", "NvimTreeFocus", "n")
-mapkey("<leader>pv", "NvimTreeToggle", "n")
+mapkey("<leader>pv", ":Ex", "n")
 mapkey("<leader>e", "NvimTreeToggle", "n")
 
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
@@ -22,7 +26,7 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
-end)
+end, { desc = "Source File" })
 
 -- Pane and Window Navigation
 mapkey("<C-h>", "<C-w>h", "n") -- Navigate Left

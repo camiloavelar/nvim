@@ -15,12 +15,10 @@ local config = function()
 			git_files = {
 				-- theme = "dropdown",
 				previewer = true,
-				hidden = false,
 			},
 			find_files = {
 				-- theme = "dropdown",
 				previewer = true,
-				hidden = false,
 			},
 			live_grep = {
 				-- theme = "dropdown",
@@ -50,10 +48,17 @@ return {
 		mapkey("<leader>pf", "Telescope find_files", "n"),
 		mapkey("<C-p>", "Telescope git_files", "n"),
     mapkey("<leader>fd", "Telescope diagnostics", "n"),
-		mapkey("<leader>fg", "Telescope live_grep", "n"),
+		mapkey("<leader>fgl", "Telescope live_grep", "n"),
+		mapkey("<leader>fgs", "Telescope grep_string", "n"),
 		mapkey("<leader>fb", "Telescope buffers", "n"),
-		mapkey("<leader>fs", "Telescope symbols", "n"),
+		mapkey("<leader>bl", "Telescope buffers", "n"),
+		mapkey("<leader>fs", "Telescope lsp_document_symbols", "n"),
 		mapkey("<leader>gc", "Telescope git_commits", "n"),
 		mapkey("<leader>gb", "Telescope git_branches", "n"),
+		mapkey("<leader>ftt", "Telescope treesitter", "n"),
+    mapkey("<leader>fd", "Telescope lsp_references", "n"),
+    mapkey("<leader>gD", "Telescope lsp_definitions", "n"),
+    mapkey("<leader>gi", "Telescope lsp_implementations", "n"),
+    mapkey("<leader>gt", "Telescope lsp_type_definitions", "n"),
 	},
 }

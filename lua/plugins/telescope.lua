@@ -2,6 +2,18 @@ local mapkey = require("util.keymapper").mapkey
 
 local config = function()
 	local telescope = require("telescope")
+  local builtin = require("telescope.builtin")
+
+  vim.keymap.set("n", "<leader>fw", function()
+    local word = vim.fn.expand("<cword>")
+    builtin.grep_string({ search = word })
+  end, { desc = "Search for word under cursor" })
+
+  vim.keymap.set("n", "<leader>fW", function()
+    local word = vim.fn.expand("<cWORD>")
+    builtin.grep_string({ search = word })
+  end, { desc = "Search for full word under cursor" })
+
 	telescope.setup({
 		defaults = {
 			mappings = {

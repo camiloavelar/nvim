@@ -5,7 +5,7 @@ return {
 	dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 	opts = {},
   config = {
-    max_count = 4,
+    max_count = 9,
     allow_different_key = true
   }
 }

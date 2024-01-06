@@ -14,22 +14,7 @@ return {
     vim.keymap.set("n", "<leader>tq", function() require("trouble").toggle("quickfix") end, { desc = "Trouble: Quickfix" })
     vim.keymap.set("n", "<leader>tl", function() require("trouble").toggle("loclist") end, { desc = "Trouble: Loclist" })
     vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end, { desc = "Trouble: LSP References" })
-
-    local CamiloAvelar_Trouble = vim.api.nvim_create_augroup("CamiloAvelar_Trouble", {})
-    local autocmd = vim.api.nvim_create_autocmd
-    autocmd("BufWinEnter", {
-      group = CamiloAvelar_Trouble,
-      pattern = "*",
-      callback = function ()
-        if vim.bo.ft ~= "noice" then
-            return
-        end
-
-        local bufnr = vim.api.nvim_get_current_buf()
-
-        vim.keymap.set("n", "<leader>tn", function() require("trouble").next({ skip_groups = true, jump = true }) end, { buffer = bufnr, remap = false, desc = "Trouble: Next" })
-        vim.keymap.set("n", "<leader>tp", function() require("trouble").previous({ skip_groups = true, jump = true }) end, { buffer = bufnr, remap = false, desc = "Trouble: Previous" })
-      end,
-    })
+    vim.keymap.set("n", "<leader>tn", function() require("trouble").next({ skip_groups = true, jump = true }) end, { desc = "Trouble: Next" })
+    vim.keymap.set("n", "<leader>tp", function() require("trouble").previous({ skip_groups = true, jump = true }) end, { desc = "Trouble: Previous" })
   end,
 }

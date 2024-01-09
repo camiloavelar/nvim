@@ -26,15 +26,24 @@ local config = function()
 		options = {
 			theme = "auto",
 			globalstatus = true,
-			component_separators = { left = "|", right = "|" },
-			section_separators = { left = "", right = "" },
+			component_separators = "|",
+			section_separators = { right = "", left = "" },
       disabled_filetypes = {
-        "NvimTree"
+        "NvimTree",
       }
 		},
 		sections = {
-			lualine_a = { "mode" },
-			lualine_b = { { "buffers", max_length = vim.o.columns * 2 / 6 } },
+      lualine_a = {
+        {
+          "mode",
+          icons_enabled = true,
+          icon = "",
+        }
+      },
+      lualine_b = {
+        "diagnostics",
+        "filename",
+      },
       lualine_c = {
         { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available }
       },

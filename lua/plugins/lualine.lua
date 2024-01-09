@@ -42,7 +42,17 @@ local config = function()
       },
       lualine_b = {
         "diagnostics",
-        "filename",
+        "branch",
+        {
+          "filename",
+          path = 1,
+          symbols = {
+            modified = '',      -- Text to show when the file is modified.
+            readonly = '󰌾',      -- Text to show when the file is non-modifiable or readonly.
+            unnamed = 'No Name', -- Text to show for unnamed buffers.
+            newfile = 'New File',     -- Text to show for newly created file before first write
+          }
+        },
       },
       lualine_c = {
         { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available }

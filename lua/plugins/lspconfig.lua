@@ -76,6 +76,7 @@ local config = function()
 		capabilities = capabilities,
 		filetypes = {
 			"typescript",
+      "javascript",
 		},
 		root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
 	})
@@ -110,6 +111,19 @@ local config = function()
 			"vue",
 			"html",
 		},
+	})
+
+	-- rust
+	lspconfig.rust_analyzer.setup({
+		capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+      ['rust-analyzer'] = {
+        diagnostics = {
+          enable = true
+        }
+      }
+    }
 	})
 
 	-- docker

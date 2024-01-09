@@ -2,6 +2,7 @@ local opts = {
 	ensure_installed = {
 		"tsserver",
 		"gopls",
+    "rust_analyzer",
 	},
 
 	automatic_installation = true,

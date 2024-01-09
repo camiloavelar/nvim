@@ -26,15 +26,34 @@ local config = function()
 		options = {
 			theme = "auto",
 			globalstatus = true,
-			component_separators = { left = "|", right = "|" },
-			section_separators = { left = "", right = "" },
+			component_separators = "|",
+			section_separators = { right = "", left = "" },
       disabled_filetypes = {
-        "NvimTree"
+        "NvimTree",
       }
 		},
 		sections = {
-			lualine_a = { "mode" },
-			lualine_b = { { "buffers", max_length = vim.o.columns * 2 / 6 } },
+      lualine_a = {
+        {
+          "mode",
+          icons_enabled = true,
+          icon = "",
+        }
+      },
+      lualine_b = {
+        "diagnostics",
+        "branch",
+        {
+          "filename",
+          path = 0,
+          symbols = {
+            modified = '',      -- Text to show when the file is modified.
+            readonly = '󰌾',      -- Text to show when the file is non-modifiable or readonly.
+            unnamed = 'No Name', -- Text to show for unnamed buffers.
+            newfile = 'New File',     -- Text to show for newly created file before first write
+          }
+        },
+      },
       lualine_c = {
         { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available }
       },

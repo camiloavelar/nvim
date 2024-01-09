@@ -14,7 +14,23 @@ return {
     vim.keymap.set("n", "<leader>tq", function() require("trouble").toggle("quickfix") end, { desc = "Trouble: Quickfix" })
     vim.keymap.set("n", "<leader>tl", function() require("trouble").toggle("loclist") end, { desc = "Trouble: Loclist" })
     vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end, { desc = "Trouble: LSP References" })
-    vim.keymap.set("n", "<leader>tn", function() require("trouble").next({ skip_groups = true, jump = true }) end, { desc = "Trouble: Next" })
-    vim.keymap.set("n", "<leader>tp", function() require("trouble").previous({ skip_groups = true, jump = true }) end, { desc = "Trouble: Previous" })
+    vim.keymap.set("n", "<leader>tn", function()
+      local trouble = require("trouble")
+
+      if not trouble.is_open() then
+        trouble.open()
+      end
+
+      trouble.next({ skip_groups = true, jump = true })
+    end, { desc = "Trouble: Next" })
+    vim.keymap.set("n", "<leader>tp", function()
+      local trouble = require("trouble")
+
+      if not trouble.is_open() then
+        trouble.open()
+      end
+
+      require("trouble").previous({ skip_groups = true, jump = true })
+    end, { desc = "Trouble: Previous" })
   end,
 }

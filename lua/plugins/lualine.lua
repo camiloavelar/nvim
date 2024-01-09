@@ -45,7 +45,7 @@ local config = function()
         "branch",
         {
           "filename",
-          path = 1,
+          path = 0,
           symbols = {
             modified = '',      -- Text to show when the file is modified.
             readonly = '󰌾',      -- Text to show when the file is non-modifiable or readonly.

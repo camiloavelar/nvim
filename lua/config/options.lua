@@ -1,5 +1,7 @@
 local opt = vim.opt
 
+opt.list = true
+opt.listchars="eol:↲,tab:»\\,trail:·,nbsp:␣"
 -- Tab / Indentation
 opt.tabstop = 2
 opt.shiftwidth = 2

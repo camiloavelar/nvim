@@ -67,5 +67,6 @@ api.nvim_set_keymap("n", "<leader>zm", ":TZMinimalist<CR>", {})
 api.nvim_set_keymap("n", "<leader>za", ":TZAtaraxis<CR>", {})
 
 -- Comments
-api.nvim_set_keymap("n", "<C-_>", "ccl", { noremap = false })
+api.nvim_set_keymap("n", "<C-_>", "<leader>ctl", { noremap = false })
 api.nvim_set_keymap("v", "<C-_>", "col", { noremap = false })
+

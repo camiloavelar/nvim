@@ -33,8 +33,14 @@ local config = function()
         "yarn.lock",
         "package-lock.json",
       },
+      dynamic_preview_title = true,
     },
 		pickers = {
+      lsp_references = {
+        previewer = true,
+        hidden = true,
+        show_line = false,
+      },
 			git_files = {
 				previewer = true,
         hidden = true,
@@ -71,7 +77,6 @@ return {
 		mapkey("<leader>fh", "Telescope help_tags", "n"),
 		mapkey("<leader>pf", "Telescope find_files", "n"),
 		mapkey("<C-p>", "Telescope git_files", "n"),
-    mapkey("<leader>fd", "Telescope diagnostics", "n"),
 		mapkey("<leader>fg", "Telescope live_grep", "n"),
 		mapkey("<leader>fb", "Telescope buffers", "n"),
 		mapkey("<leader>bl", "Telescope buffers", "n"),

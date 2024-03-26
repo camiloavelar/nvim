@@ -14,7 +14,7 @@ mapkey("<leader>q", "Noice dismiss", "n")
 
 -- Directory Navigatio}n
 mapkey("<leader>pv", ":Ex", "n")
-mapkey("<leader>e", "NvimTreeToggle", "n")
+mapkey("<leader>e", "NvimTreeFindFileToggle", "n")
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")

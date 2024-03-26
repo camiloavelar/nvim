@@ -21,7 +21,7 @@ return {
 	config = function()
 		require("nvim-tree").setup({
       on_attach = my_on_attach,
-      hijack_netrw = false,
+      hijack_netrw = true,
 			filters = {
 				dotfiles = false,
 			},
@@ -31,8 +31,11 @@ return {
         }
       },
 			view = {
+        width = {
+          min = 40,
+        },
         float = {
-          enable = true,
+          enable = false,
           open_win_config = function()
             local screen_w = vim.opt.columns:get()
             local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()

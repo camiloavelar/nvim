@@ -60,12 +60,20 @@ local config = function()
 	})
 end
 
+local context_config = function()
+  require("treesitter-context").setup({
+    enable = true,
+    max_lines = 3,
+    multiline_threshold = 2,
+  })
+end
+
 return {
 	"nvim-treesitter/nvim-treesitter",
 	lazy = false,
 	config = config,
   dependencies = {
-    { "nvim-treesitter/nvim-treesitter-context", config = true },
+    { "nvim-treesitter/nvim-treesitter-context", config = context_config },
     "nvim-treesitter/nvim-treesitter-textobjects",
   }
 }

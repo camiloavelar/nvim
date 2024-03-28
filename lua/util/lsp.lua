@@ -10,7 +10,7 @@ M.on_attach = function(client, bufnr)
 	mapkey("<leader>ca", "Lspsaga code_action", "n", opts) -- see available code actions
 	mapkey("<leader>rn", "Lspsaga rename", "n", opts) -- smart rename
 	mapkey("<leader>D", "Lspsaga show_line_diagnostics", "n", opts)
-	mapkey("<leader>d", "Lspsaga show_workspace_diagnostics", "n", opts)
+	mapkey("<leader>dw", "Lspsaga show_workspace_diagnostics", "n", opts)
 	mapkey("<leader>pd", "Lspsaga diagnostic_jump_prev", "n", opts) -- jump to prev diagnostic in buffer
 	mapkey("<leader>nd", "Lspsaga diagnostic_jump_next", "n", opts) -- jump to next diagnostic in buffer
 	mapkey("K", "Lspsaga hover_doc", "n", opts) -- show documentation for what is under cursor

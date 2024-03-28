@@ -41,6 +41,11 @@ local config = function()
         hidden = true,
         show_line = false,
       },
+      lsp_implementations = {
+        previewer = true,
+        hidden = true,
+        show_line = false,
+      },
 			git_files = {
 				previewer = true,
         hidden = true,

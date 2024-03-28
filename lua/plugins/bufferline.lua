@@ -31,6 +31,15 @@ return {
           enabled = true,
           delay = 100,
           reveal = {'close'}
+        },
+        offsets = {
+          {
+            filetype = "NvimTree",
+            text = "File Explorer",
+            highlight = "Directory",
+            text_align = "center",
+            separator = true,
+          }
         }
       },
     }

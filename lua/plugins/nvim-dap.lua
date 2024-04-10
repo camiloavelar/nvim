@@ -35,8 +35,6 @@ return {
       dapui.close()
     end
 
-    -- vim.fn.sign_define('DapBreakpoint',{ text ='🟥', texthl ='', linehl ='', numhl =''})
-    -- vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
     local namespace = vim.api.nvim_create_namespace("dap-hlng")
     vim.api.nvim_set_hl(namespace, 'DapBreakpoint', { fg='#eaeaeb', bg='#ffffff' })
     vim.api.nvim_set_hl(namespace, 'DapLogPoint', { fg='#eaeaeb', bg='#ffffff' })
@@ -48,11 +46,11 @@ return {
     vim.fn.sign_define('DapLogPoint', { text='', texthl='DapLogPoint', linehl='DapLogPoint', numhl= 'DapLogPoint' })
     vim.fn.sign_define('DapStopped', { text='', texthl='DapStopped', linehl='DapStopped', numhl= 'DapStopped' })
 
-    vim.keymap.set('n', '<leader>da', require 'dap'.toggle_breakpoint)
-    vim.keymap.set('n', '<leader>dc', require 'dap'.terminate)
-    vim.keymap.set('n', '<F5>', require 'dap'.continue)
-    vim.keymap.set('n', '<F10>', require 'dap'.step_over)
-    vim.keymap.set('n', '<F11>', require 'dap'.step_into)
-    vim.keymap.set('n', '<F12>', require 'dap'.step_out)
+    vim.keymap.set('n', '<leader>da', require 'dap'.toggle_breakpoint, { desc = 'Debugger: Toggle breakpoint' })
+    vim.keymap.set('n', '<leader>dt', require 'dap'.terminate , { desc = 'Debugger: Terminate' })
+    vim.keymap.set('n', '<leader>ds', require 'dap'.continue, { desc = 'Debugger: Continue/Start' })
+    vim.keymap.set('n', '<leader>do', require 'dap'.step_over, { desc = 'Debugger: Step over' })
+    vim.keymap.set('n', '<leader>di', require 'dap'.step_into, { desc = 'Debugger: Step into' })
+    vim.keymap.set('n', '<leader>dv', require 'dap'.step_out, { desc = 'Debugger: Step out' })
   end
 }

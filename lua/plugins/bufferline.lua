@@ -18,6 +18,13 @@ return {
     mapkey("<leader>b7", "BufferLineGoToBuffer 7", "n"),
     mapkey("<leader>b8", "BufferLineGoToBuffer 8", "n"),
     mapkey("<leader>b9", "BufferLineGoToBuffer 9", "n"),
+    vim.keymap.set("n", "<leader>E", function()
+      if vim.o.showtabline == 1 then
+        vim.o.showtabline = 2
+      else
+        vim.o.showtabline = 1
+      end
+    end, { desc = "Toggle bufferline"}),
   },
   config = function ()
     vim.opt.termguicolors = true
@@ -26,6 +33,7 @@ return {
     require("bufferline").setup{
       options = {
         numbers = "ordinal",
+        always_show_bufferline = false,
         sort_by = "insert_at_end",
         hover = {
           enabled = true,

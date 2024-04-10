@@ -14,7 +14,8 @@ mapkey("<leader>q", "Noice dismiss", "n")
 
 -- Directory Navigatio}n
 mapkey("<leader>pv", ":Ex", "n")
-mapkey("<leader>e", "NvimTreeFindFileToggle", "n")
+mapkey("<leader>ee", "NvimTreeFindFileToggle", "n")
+mapkey("<leader>ec", "NvimTreeCollapse", "n")
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
@@ -35,8 +36,10 @@ mapkey("<C-k>", "wincmd k", "t") -- Navigate Up
 mapkey("<C-l>", "wincmd l", "t") -- Navigate Right
 
 -- Window Management
-mapkey("<leader>sv", "vsplit", "n") -- Split Vertically
-mapkey("<leader>sh", "split", "n") -- Split Horizontally
+vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
+vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
+vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })
+vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
 mapkey("<C-Up>", "resize +2", "n")
 mapkey("<C-Down>", "resize -2", "n")
 mapkey("<C-Left>", "vertical resize +2", "n")

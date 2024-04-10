@@ -1,11 +1,87 @@
 return {
-	"catppuccin/nvim",
+  "catppuccin/nvim",
 	lazy = false,
 	config = function()
 		require("catppuccin").setup({
       transparent_background = true,
-      term_colors = true,
+      term_colors = false,
+      custom_highlights = function(colors)
+        return {
+          Cursor = { bg = colors.green, fg = colors.black },
+          iCursor = { bg = colors.green, fg = colors.black },
+
+          Constant = {fg = colors.text},
+          String = {fg = colors.yellow},
+          Character = {fg = colors.pink3},
+          Number = {fg = colors.teal1},
+          Boolean = {fg = colors.teal1},
+          Float = {fg = colors.teal1},
+          Identifier = {fg = colors.blueGray1},
+          Function = {fg = colors.teal1},
+          Statement = {fg = colors.text},
+          Conditional = {fg = colors.blueGray1},
+          Repeat = {fg = colors.blue3},
+          Label = {fg = colors.text},
+          Operator = {fg = colors.blue2},
+          Keyword = {fg = colors.blue2},
+          Exception = {fg = colors.blue3},
+          PreProc = {fg = colors.text},
+          Include = {fg = colors.blueGray1},
+          Define = {fg = colors.yellow},
+          Macro = {fg = colors.yellow},
+          PreCondit = {fg = colors.yellow},
+          Type = {fg = colors.blueGray1},
+          StorageClass = {fg = colors.overlay2},
+          Structure = {fg = colors.subtext0},
+          Special = {fg = colors.overlay2},
+          SpecialChar = {fg = colors.overlay2},
+
+          TSProperty = { fg = colors.subtext0 },
+          TSVariable = { fg = colors.text },
+          TSFunction = { fg = colors.blue2 },
+          TSReturn = { fg = colors.blue1 },
+
+          ["@property"] = { link = "TSProperty" },
+          ["@parameter"] = { fg = colors.text },
+          ["@module"] = { fg = colors.text },
+          ['@type'] = { link = 'Type' },
+          ['@type.builtin'] = { link = 'Type' },
+          ["@variable.parameter"] = { fg = colors.text },
+          ["@variable.member"] = { link = "TSVariable" },
+          ["@keyword.function"] = { link = "TSFunction" },
+          ["@keyword.return"] = { link = "TSReturn" },
+          ['@function.builtin'] = { fg = colors.blue2 },
+          ['@function'] = { link = 'Function' },
+          ['@function.call'] = { fg = colors.blueGray1 },
+          ['@constant.builtin'] = { fg = colors.blue2 },
+          ['@constant.falsy'] = { fg = colors.pink3 },
+        }
+      end,
       color_overrides = {
+        all = {
+          green = "#5DE4C7",
+          subtext1 = "#E4F0FB",
+          yellow = '#FFFAC2',
+          teal1 = '#5DE4C7',
+          teal2 = '#5FB3A1',
+          teal3 = '#42675A',
+          blue1 = '#89DDFF',
+          blue2 = '#ADD7FF',
+          blue3 = '#91B4D5',
+          blue4 = '#7390AA',
+          pink1 = '#FAE4FC',
+          pink2 = '#FCC5E9',
+          pink3 = '#D0679D',
+          blueGray1 = '#A6ACCD',
+          blueGray2 = '#767C9D',
+          blueGray3 = '#506477',
+          background1 = '#303340',
+          background2 = '#1B1E28',
+          background3 = '#171922',
+          text = '#E4F0FB',
+          white = '#FFFFFF',
+          none = 'NONE',
+        },
         mocha = {
           base = "#000000",
           mantle = "#000000",
@@ -13,7 +89,8 @@ return {
         },
       },
     })
-
-    vim.cmd("colorscheme catppuccin-mocha")
 	end,
+  init = function()
+    vim.cmd("colorscheme catppuccin-mocha")
+  end,
 }

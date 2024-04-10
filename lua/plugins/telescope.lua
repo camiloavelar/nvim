@@ -85,7 +85,7 @@ return {
 		mapkey("<leader>fg", "Telescope live_grep", "n"),
 		mapkey("<leader>fb", "Telescope buffers", "n"),
 		mapkey("<leader>bl", "Telescope buffers", "n"),
-		mapkey("<leader>fs", "Telescope lsp_document_symbols", "n"),
+		mapkey("<leader>fs", "Telescope lsp_document_symbols symbol_width=0.9", "n"),
 		mapkey("<leader>gc", "Telescope git_commits", "n"),
 		mapkey("<leader>gb", "Telescope git_branches", "n"),
 		mapkey("<leader>ts", "Telescope treesitter", "n"),

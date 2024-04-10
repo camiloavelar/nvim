@@ -19,21 +19,37 @@ return {
 	"nvim-tree/nvim-tree.lua",
 	lazy = false,
 	config = function()
+    vim.g.loaded_netrw = 1
+    vim.g.loaded_netrwPlugin = 1
+
 		require("nvim-tree").setup({
       on_attach = my_on_attach,
       hijack_netrw = true,
+      update_focused_file = {
+        enable = true,
+      },
 			filters = {
 				dotfiles = false,
 			},
       actions = {
         open_file = {
-          quit_on_open = true
+          quit_on_open = true,
+          window_picker = {
+            enable = false,
+          },
         }
+      },
+      renderer = {
+        indent_markers = {
+          enable = true
+        },
       },
 			view = {
         width = {
           min = 40,
         },
+				adaptive_size = false,
+        relativenumber = true,
         float = {
           enable = false,
           open_win_config = function()
@@ -56,8 +72,6 @@ return {
             }
           end,
         },
-				adaptive_size = false,
-        relativenumber = true,
 			},
 		})
 	end,

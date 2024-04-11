@@ -5,7 +5,7 @@ return {
   lazy = false,
   config = function ()
     vim.opt.list = true
-    vim.opt.listchars:append('eol:↴')
+    vim.opt.listchars:append('eol:⤦')
     vim.opt.listchars:append('trail:·')
     vim.opt.listchars:append('lead:·')
     vim.opt.listchars:append('tab:▎ ')

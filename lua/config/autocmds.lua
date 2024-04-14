@@ -23,3 +23,4 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufNewFile", "BufWinEnter"}, {
     vim.diagnostic.disable(0)
   end
 })
+

@@ -14,7 +14,7 @@ M.on_attach = function(client, bufnr)
 	mapkey("<leader>d", "Lspsaga show_workspace_diagnostics", "n", opts)
 	mapkey("<leader>pd", "Lspsaga diagnostic_jump_prev", "n", opts) -- jump to prev diagnostic in buffer
 	mapkey("<leader>nd", "Lspsaga diagnostic_jump_next", "n", opts) -- jump to next diagnostic in buffer
-	mapkey("K", "Lspsaga hover_doc", "n", opts) -- show documentation for what is under cursor
+	-- mapkey("K", "Lspsaga hover_doc", "n", opts) -- show documentation for what is under cursor
 
 end
 

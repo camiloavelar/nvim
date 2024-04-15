@@ -29,6 +29,7 @@ return {
     end, { desc = "Toggle bufferline"}),
   },
   config = function ()
+    vim.opt.showtabline = 2
     vim.opt.termguicolors = true
     vim.opt.mousemoveevent = true
 

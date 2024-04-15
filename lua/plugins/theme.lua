@@ -35,6 +35,7 @@ return {
           Structure = {fg = colors.subtext0},
           Special = {fg = colors.overlay2},
           SpecialChar = {fg = colors.overlay2},
+          Folded = {fg = colors.blueGray2, bg = colors.background3},
 
           TSProperty = { fg = colors.blueGray1 },
           TSVariable = { fg = colors.text },

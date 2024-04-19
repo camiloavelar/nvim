@@ -7,6 +7,13 @@ return {
 				view = "notify",
 				filter = { event = "msg_showmode" },
 			},
+			{
+				filter = {
+					event = "notify",
+					find = "No information available",
+				},
+				skip = true,
+			},
 		},
 		lsp = {
 			-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -36,6 +43,8 @@ return {
 		 	config = function()
 		 		require("notify").setup({
 		 			background_colour = "#000000",
+					timeout = 1500,
+					stages = "static",
 		 		})
 		 	end,
 		 },

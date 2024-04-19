@@ -24,7 +24,7 @@ return {
 			end
 
 			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 				callback = function(event)
 					local map = function(keys, func, desc)
 						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
@@ -99,6 +99,19 @@ return {
 				"stylua",
 			})
 
+			local _border = "rounded"
+
+			vim.diagnostic.config({
+				float = { border = _border },
+			})
+
+			require("lspconfig.ui.windows").default_options.border = _border
+
+			local handlers = {
+				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = _border }),
+				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border }),
+			}
+
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 			require("mason-lspconfig").setup({
 				automatic_installation = true,
@@ -109,6 +122,7 @@ return {
 						-- by the server configuration above. Useful when disabling
 						-- certain features of an LSP (for example, turning off formatting for tsserver)
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+						server.handlers = vim.tbl_deep_extend("force", {}, handlers, server.handlers or {})
 						require("lspconfig")[server_name].setup(server)
 					end,
 				},

@@ -97,7 +97,7 @@ return {
 		mapkey("<leader>pf", "Telescope find_files", "n"),
 		mapkey("<C-p>", "Telescope git_files", "n"),
 		mapkey("<leader>fg", "Telescope live_grep", "n"),
-		mapkey("<leader>fb", "Telescope buffers", "n"),
+		mapkey("<leader>fb", "Telescope buffers sort_mru=true", "n"),
 		mapkey("<leader>bl", "Telescope buffers", "n"),
 		mapkey("<leader>gc", "Telescope git_commits", "n"),
 		mapkey("<leader>gb", "Telescope git_branches", "n"),

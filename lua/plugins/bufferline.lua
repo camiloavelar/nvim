@@ -1,139 +1,133 @@
 local mapkey = require("util.keymapper").mapkey
 
 return {
-  'CamiloAvelar/bufferline.nvim',
-  version = "*",
-  dependencies = 'nvim-tree/nvim-web-devicons',
-  lazy = false,
-  keys = {
-    mapkey("<leader><Tab>", "BufferLineCycleNext", "n"),
-    mapkey("<leader>bc", "BufferLineCloseOthers", "n"),
+	"CamiloAvelar/bufferline.nvim",
+	version = "*",
+	dependencies = "nvim-tree/nvim-web-devicons",
+	lazy = false,
+	keys = {
+		mapkey("<leader><Tab>", "BufferLineCycleNext", "n"),
+		mapkey("<leader>bc", "BufferLineCloseOthers", "n"),
 
-    mapkey("<leader>0", "BufferLineGoToBuffer -1", "n"),
-    mapkey("<leader>b0", "BufferLineGoToBuffer -1", "n"),
-    mapkey("<leader>b1", "BufferLineGoToBuffer 1", "n"),
-    mapkey("<leader>b2", "BufferLineGoToBuffer 2", "n"),
-    mapkey("<leader>b3", "BufferLineGoToBuffer 3", "n"),
-    mapkey("<leader>b4", "BufferLineGoToBuffer 4", "n"),
-    mapkey("<leader>b5", "BufferLineGoToBuffer 5", "n"),
-    mapkey("<leader>b6", "BufferLineGoToBuffer 6", "n"),
-    mapkey("<leader>b7", "BufferLineGoToBuffer 7", "n"),
-    mapkey("<leader>b8", "BufferLineGoToBuffer 8", "n"),
-    mapkey("<leader>b9", "BufferLineGoToBuffer 9", "n"),
-    vim.keymap.set("n", "<leader>E", function()
-      if vim.o.showtabline == 1 then
-        vim.o.showtabline = 2
-      else
-        vim.o.showtabline = 1
-      end
-    end, { desc = "Toggle bufferline"}),
-  },
-  config = function ()
-    vim.opt.showtabline = 2
-    vim.opt.termguicolors = true
-    vim.opt.mousemoveevent = true
+		mapkey("<leader>0", "BufferLineGoToBuffer -1", "n"),
+		vim.keymap.set("n", "<leader>E", function()
+			if vim.o.showtabline == 1 then
+				vim.o.showtabline = 2
+			else
+				vim.o.showtabline = 1
+			end
+		end, { desc = "Toggle bufferline" }),
+	},
+	config = function()
+		vim.opt.showtabline = 2
+		vim.opt.termguicolors = true
+		vim.opt.mousemoveevent = true
 
-    local last_buff_name = ""
-    require("bufferline").setup{
-      options = {
-        custom_filter = function (buf_number, _)
-          local harpoon_files = require("harpoon"):list().items
-          local buf_name = vim.fn.bufname(buf_number)
-          local current_buf = vim.fn.bufname()
-          local last_buff_id = vim.fn.bufnr("#")
+		for i = 1, 9 do
+			mapkey("<leader>b" .. i, "BufferLineGoToBuffer " .. i, "n")
+		end
 
-          if last_buff_id ~= -1 then
-            local last_buff_name_temp = vim.fn.bufname(last_buff_id)
-            local last_buff_is_harpoon = false
+		local last_buff_name = ""
+		require("bufferline").setup({
+			options = {
+				custom_filter = function(buf_number, _)
+					local harpoon_files = require("harpoon"):list().items
+					local buf_name = vim.fn.bufname(buf_number)
+					local current_buf = vim.fn.bufname()
+					local last_buff_id = vim.fn.bufnr("#")
 
-            for _, file in ipairs(harpoon_files) do
-              if last_buff_name_temp == file.value then
-                last_buff_is_harpoon = true
-              end
-            end
+					if last_buff_id ~= -1 then
+						local last_buff_name_temp = vim.fn.bufname(last_buff_id)
+						local last_buff_is_harpoon = false
 
-            if not last_buff_is_harpoon then
-              last_buff_name = last_buff_name_temp
-            end
-          end
+						for _, file in ipairs(harpoon_files) do
+							if last_buff_name_temp == file.value then
+								last_buff_is_harpoon = true
+							end
+						end
 
-          if buf_name == current_buf then
-            return true
-          end
+						if not last_buff_is_harpoon then
+							last_buff_name = last_buff_name_temp
+						end
+					end
 
-          if buf_name == last_buff_name then
-            local current_buf_is_harpoon = false
+					if buf_name == current_buf then
+						return true
+					end
 
-            for _, file in ipairs(harpoon_files) do
-              if current_buf == file.value then
-                current_buf_is_harpoon = true
-              end
-            end
+					if buf_name == last_buff_name then
+						local current_buf_is_harpoon = false
 
-            if current_buf_is_harpoon then
-              return true
-            end
+						for _, file in ipairs(harpoon_files) do
+							if current_buf == file.value then
+								current_buf_is_harpoon = true
+							end
+						end
 
-            return false
-          end
+						if current_buf_is_harpoon then
+							return true
+						end
 
-          for _, file in ipairs(harpoon_files) do
-            if buf_name == file.value then
-              return true
-            end
-          end
+						return false
+					end
 
-          return false
-        end,
-        numbers = function(opts)
-          local harpoon_files = require("harpoon"):list().items
-          local number = 0
+					for _, file in ipairs(harpoon_files) do
+						if buf_name == file.value then
+							return true
+						end
+					end
 
-          for i, file in ipairs(harpoon_files) do
-            local bufname = vim.fn.bufname(opts.id)
-            if bufname == file.value then
-              number = i
-            end
-          end
+					return false
+				end,
+				numbers = function(opts)
+					local harpoon_files = require("harpoon"):list().items
+					local number = 0
 
-          return string.format('%s·', number)
-          -- return string.format('%s·%s', number, opts.raise(opts.ordinal))
-        end,
-        always_show_bufferline = false,
-        auto_toggle_bufferline = false,
-        sort_by = function(buffer_a, buffer_b)
-          local harpoon_files = require("harpoon"):list().items
-          local buff_a_number = 100
-          local buff_b_number = 100
+					for i, file in ipairs(harpoon_files) do
+						local bufname = vim.fn.bufname(opts.id)
+						if bufname == file.value then
+							number = i
+						end
+					end
 
-          for i, file in ipairs(harpoon_files) do
-            local buf_a_name = vim.fn.bufname(buffer_a.id)
-            local buf_b_name = vim.fn.bufname(buffer_b.id)
-            if buf_a_name == file.value then
-              buff_a_number = i
-            end
-            if buf_b_name == file.value then
-              buff_b_number = i
-            end
-          end
+					return string.format("%s·", number)
+					-- return string.format('%s·%s', number, opts.raise(opts.ordinal))
+				end,
+				always_show_bufferline = false,
+				auto_toggle_bufferline = false,
+				sort_by = function(buffer_a, buffer_b)
+					local harpoon_files = require("harpoon"):list().items
+					local buff_a_number = 100
+					local buff_b_number = 100
 
-          return buff_a_number < buff_b_number
-        end,
-        hover = {
-          enabled = true,
-          delay = 100,
-          reveal = {'close'}
-        },
-        offsets = {
-          {
-            filetype = "NvimTree",
-            text = "",
-            highlight = "Directory",
-            text_align = "center",
-            separator = true,
-          }
-        }
-      },
-    }
-  end
+					for i, file in ipairs(harpoon_files) do
+						local buf_a_name = vim.fn.bufname(buffer_a.id)
+						local buf_b_name = vim.fn.bufname(buffer_b.id)
+						if buf_a_name == file.value then
+							buff_a_number = i
+						end
+						if buf_b_name == file.value then
+							buff_b_number = i
+						end
+					end
+
+					return buff_a_number < buff_b_number
+				end,
+				hover = {
+					enabled = true,
+					delay = 100,
+					reveal = { "close" },
+				},
+				offsets = {
+					{
+						filetype = "NvimTree",
+						text = "",
+						highlight = "Directory",
+						text_align = "center",
+						separator = true,
+					},
+				},
+			},
+		})
+	end,
 }

@@ -38,6 +38,9 @@ local opts = {
 			"zipPlugin",
 		},
 	},
+	change_detection = {
+		notify = false,
+	},
 }
 
 require("lazy").setup(plugins, opts)

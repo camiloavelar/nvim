@@ -2,7 +2,7 @@ return {
 	"lukas-reineke/indent-blankline.nvim",
 	main = "ibl",
 	opts = {},
-	lazy = false,
+	event = "VeryLazy",
 	config = function()
 		vim.opt.list = true
 		vim.opt.listchars:append("eol:⤦")

@@ -13,6 +13,9 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true, noremap = true })
 mapkey("<leader>bn", "bnext", "n") -- Next buffer
 mapkey("<leader>bp", "bprevious", "n") -- Prev buffer
 
+-- Tab Navigation
+mapkey("<leader><S-Tab>", "tabnext", "n") -- Next tab
+
 -- Noice
 mapkey("<leader>fn", "Noice telescope", "n")
 mapkey("<leader>q", "Noice dismiss", "n")

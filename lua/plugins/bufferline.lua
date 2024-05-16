@@ -4,7 +4,7 @@ return {
 	"CamiloAvelar/bufferline.nvim",
 	version = "*",
 	dependencies = "nvim-tree/nvim-web-devicons",
-	lazy = false,
+	event = "VeryLazy",
 	keys = {
 		mapkey("<leader><Tab>", "BufferLineCycleNext", "n"),
 		mapkey("<leader>bc", "BufferLineCloseOthers", "n"),

@@ -10,5 +10,5 @@ return {
 			block = "cob",
 		},
 	},
-	lazy = false,
+	event = "VeryLazy",
 }

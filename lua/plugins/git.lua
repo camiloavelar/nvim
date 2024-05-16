@@ -3,6 +3,7 @@ local mapkey = require("util.keymapper").mapkey
 return {
 	{
 		"kdheepak/lazygit.nvim",
+		event = "VeryLazy",
 		cmd = {
 			"LazyGit",
 			"LazyGitConfig",
@@ -22,7 +23,7 @@ return {
 	},
 	{
 		"f-person/git-blame.nvim",
-		lazy = false,
+		event = "VeryLazy",
 		config = function()
 			require("gitblame").setup({
 				enabled = true,
@@ -33,7 +34,7 @@ return {
 	},
 	{
 		"tpope/vim-fugitive",
-		lazy = false,
+		event = "VeryLazy",
 		keys = {
 			mapkey("<leader>gs", "Git", "n"),
 		},
@@ -59,7 +60,7 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		lazy = false,
+		event = "VeryLazy",
 		config = function()
 			require("gitsigns").setup({
 				on_attach = function(bufnr)

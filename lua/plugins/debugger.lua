@@ -5,7 +5,7 @@ return {
 		"nvim-neotest/nvim-nio",
 		"leoluz/nvim-dap-go",
 	},
-	lazy = false,
+	event = "VeryLazy",
 	config = function()
 		require("dap-go").setup({
 			dap_configurations = {

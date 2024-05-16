@@ -8,9 +8,6 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
-			-- Useful status updates for LSP.
-			{ "j-hui/fidget.nvim", opts = {} },
-
 			-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
 			-- used for completion, annotations and signatures of Neovim apis
 			{ "folke/neodev.nvim", opts = {} },
@@ -78,6 +75,9 @@ return {
 			servers.dockerls = {}
 			servers.buf = {} --TODO: check this out later, the language server is not yet available in this package
 			servers.bufls = {} --TODO: this is not maintained anymore
+			servers.pylsp = {
+				filetypes = { "py", "tiltfile" },
+			}
 			servers.bashls = {
 				filetypes = { "sh", "aliasrc" },
 			}
@@ -133,7 +133,7 @@ return {
 	},
 	{ -- Autoformat
 		"stevearc/conform.nvim",
-		lazy = false,
+		event = "VeryLazy",
 		keys = {
 			{
 				"<leader>ff",

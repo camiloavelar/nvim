@@ -70,7 +70,7 @@ end
 
 return {
 	"nvim-treesitter/nvim-treesitter",
-	lazy = false,
+	event = "VeryLazy",
 	config = config,
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter-context", config = context_config },

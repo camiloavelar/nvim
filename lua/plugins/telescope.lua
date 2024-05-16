@@ -16,10 +16,16 @@ local config = function()
 
 	telescope.setup({
 		defaults = {
+			history = {
+				path = "~/.local/share/nvim/databases/telescope_history.sqlite3",
+				limit = 100,
+			},
 			mappings = {
 				i = {
 					["<C-j>"] = "move_selection_next",
 					["<C-k>"] = "move_selection_previous",
+					["<C-n>"] = "cycle_history_next",
+					["<C-p>"] = "cycle_history_prev",
 				},
 			},
 			file_ignore_patterns = {
@@ -79,22 +85,36 @@ local config = function()
 				previewer = true,
 			},
 		},
+		extensions = {
+			frecency = {
+				default_workspace = "CWD",
+			},
+			fzf = {},
+			wrap_results = true,
+		},
 	})
+
+	pcall(require("telescope").load_extension, "fzf")
+	pcall(require("telescope").load_extension, "smart_history")
+	pcall(require("telescope").load_extension, "frecency")
 end
 
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.3",
 	event = "VimEnter",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		"nvim-telescope/telescope-symbols.nvim",
+		"nvim-telescope/telescope-smart-history.nvim",
+		"nvim-telescope/telescope-frecency.nvim",
+		"kkharji/sqlite.lua",
 	},
 	config = config,
 	keys = {
 		mapkey("<leader>fk", "Telescope keymaps", "n"),
 		mapkey("<leader>fh", "Telescope help_tags", "n"),
-		mapkey("<leader>pf", "Telescope find_files", "n"),
+		mapkey("<leader>pf", "Telescope frecency", "n"),
 		mapkey("<C-p>", "Telescope git_files", "n"),
 		mapkey("<leader>fg", "Telescope live_grep", "n"),
 		mapkey("<leader>fb", "Telescope buffers sort_mru=true", "n"),
@@ -102,5 +122,6 @@ return {
 		mapkey("<leader>gc", "Telescope git_commits", "n"),
 		mapkey("<leader>gb", "Telescope git_branches", "n"),
 		mapkey("<leader>ts", "Telescope treesitter", "n"),
+		mapkey("<leader>/", "Telescope current_buffer_fuzzy_find", "n"),
 	},
 }

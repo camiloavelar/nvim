@@ -67,6 +67,6 @@ end
 
 return {
 	"nvim-lualine/lualine.nvim",
-	lazy = false,
+	event = "VeryLazy",
 	config = config,
 }

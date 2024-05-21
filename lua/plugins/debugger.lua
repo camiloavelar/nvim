@@ -4,6 +4,7 @@ return {
 		"rcarriga/nvim-dap-ui",
 		"nvim-neotest/nvim-nio",
 		"leoluz/nvim-dap-go",
+		"theHamsta/nvim-dap-virtual-text",
 	},
 	event = "VeryLazy",
 	config = function()
@@ -19,6 +20,7 @@ return {
 			},
 		})
 		require("dapui").setup()
+		require("nvim-dap-virtual-text").setup({})
 
 		local dap, dapui = require("dap"), require("dapui")
 
@@ -67,5 +69,9 @@ return {
 		vim.keymap.set("n", "<leader>do", require("dap").step_over, { desc = "Debugger: Step over" })
 		vim.keymap.set("n", "<leader>di", require("dap").step_into, { desc = "Debugger: Step into" })
 		vim.keymap.set("n", "<leader>dv", require("dap").step_out, { desc = "Debugger: Step out" })
+		vim.keymap.set("n", "<leader>dc", require("dap").run_to_cursor, { desc = "Debugger: Run to cursor" })
+		vim.keymap.set("n", "<leader>?", function ()
+			require("dapui").eval(nil, { enter = true })
+		end, { desc = "Debugger: Eval under cursor" })
 	end,
 }

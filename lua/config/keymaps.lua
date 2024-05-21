@@ -21,7 +21,7 @@ mapkey("<leader>fn", "Noice telescope", "n")
 mapkey("<leader>q", "Noice dismiss", "n")
 
 -- Directory Navigatio}n
-mapkey("<leader>pv", ":Ex", "n")
+mapkey("<leader>pv", "Telescope find_files", "n")
 mapkey("<leader>ee", "NvimTreeFindFileToggle", "n")
 mapkey("<leader>ec", "NvimTreeCollapse", "n")
 

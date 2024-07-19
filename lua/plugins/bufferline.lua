@@ -41,7 +41,7 @@ return {
 						local last_buff_is_harpoon = false
 
 						for _, file in ipairs(harpoon_files) do
-							if string.find(last_buff_name_temp, file.value) then
+							if string.find(last_buff_name_temp, file.value, 1, true) then
 								last_buff_is_harpoon = true
 							end
 						end
@@ -59,7 +59,7 @@ return {
 						local current_buf_is_harpoon = false
 
 						for _, file in ipairs(harpoon_files) do
-							if string.find(current_buf, file.value) then
+							if string.find(current_buf, file.value, 1, true) then
 								current_buf_is_harpoon = true
 							end
 						end
@@ -72,7 +72,7 @@ return {
 					end
 
 					for _, file in ipairs(harpoon_files) do
-						if string.find(buf_name, file.value) then
+						if string.find(buf_name, file.value, 1, true) then
 							return true
 						end
 					end
@@ -85,7 +85,7 @@ return {
 
 					for i, file in ipairs(harpoon_files) do
 						local bufname = vim.fn.bufname(opts.id)
-						if string.find(bufname, file.value) then
+						if string.find(bufname, file.value, 1, true) then
 							number = i
 						end
 					end
@@ -103,10 +103,10 @@ return {
 					for i, file in ipairs(harpoon_files) do
 						local buf_a_name = vim.fn.bufname(buffer_a.id)
 						local buf_b_name = vim.fn.bufname(buffer_b.id)
-						if buf_a_name == file.value then
+						if string.find(buf_a_name, file.value, 1, true) then
 							buff_a_number = i
 						end
-						if buf_b_name == file.value then
+						if string.find(buf_b_name, file.value, 1, true) then
 							buff_b_number = i
 						end
 					end

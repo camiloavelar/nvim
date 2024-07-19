@@ -9,7 +9,7 @@ return {
 	},
 	config = function()
 		vim.keymap.set("n", "<leader>tt", function()
-			require("trouble").toggle()
+			require("trouble").toggle("document_diagnostics")
 		end, { desc = "Trouble" })
 		vim.keymap.set("n", "<leader>tw", function()
 			require("trouble").toggle("workspace_diagnostics")
@@ -21,14 +21,14 @@ return {
 			require("trouble").toggle("quickfix")
 		end, { desc = "Trouble: Quickfix" })
 		-- vim.keymap.set("n", "<leader>tl", function() require("trouble").toggle("loclist") end, { desc = "Trouble: Loclist" })
-		vim.keymap.set("n", "gR", function()
+		vim.keymap.set("n", "<leader>fD", function()
 			require("trouble").toggle("lsp_references")
 		end, { desc = "Trouble: LSP References" })
 		vim.keymap.set("n", "<leader>tn", function()
 			local trouble = require("trouble")
 
 			if not trouble.is_open() then
-				trouble.open()
+				trouble.open("document_diagnostics")
 			end
 
 			trouble.next({ skip_groups = true, jump = true })
@@ -37,7 +37,7 @@ return {
 			local trouble = require("trouble")
 
 			if not trouble.is_open() then
-				trouble.open()
+				trouble.open("document_diagnostics")
 			end
 
 			require("trouble").previous({ skip_groups = true, jump = true })

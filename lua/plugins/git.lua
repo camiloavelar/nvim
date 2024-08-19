@@ -116,4 +116,10 @@ return {
 			})
 		end,
 	},
+	{
+		"polarmutex/git-worktree.nvim",
+		version = "^2",
+		event = "VeryLazy",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 }

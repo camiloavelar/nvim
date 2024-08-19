@@ -1,10 +1,10 @@
 local mapkey = require("util.keymapper").mapkey
 
 return {
-	"CamiloAvelar/bufferline.nvim",
-	version = "*",
+	"akinsho/bufferline.nvim",
 	dependencies = "nvim-tree/nvim-web-devicons",
 	event = "VeryLazy",
+	branch = "main",
 	keys = {
 		mapkey("<leader><Tab>", "BufferLineCycleNext", "n"),
 		mapkey("<leader>bc", "BufferLineCloseOthers", "n"),

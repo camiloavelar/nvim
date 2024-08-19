@@ -34,6 +34,9 @@ return {
 		cmdline = {
 			view = "cmdline",
 		},
+		messages = {
+			view = "mini",
+		},
 	},
 	dependencies = {
 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -46,8 +49,6 @@ return {
 			config = function()
 				require("notify").setup({
 					background_colour = "#000000",
-					timeout = 1500,
-					stages = "static",
 				})
 			end,
 		},

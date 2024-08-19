@@ -5,9 +5,14 @@ return {
 		local resession = require("resession")
 		resession.setup({
 			buf_filter = function(bufnr)
-				--NOTE: saves only harpooned files
+				-- NOTE: saves only harpooned files
 				local harpoon_files = require("harpoon"):list().items
 				local buf_name = vim.fn.bufname(bufnr)
+				local current_buf = vim.fn.bufname()
+
+				if buf_name == current_buf then
+					return true
+				end
 
 				for _, file in ipairs(harpoon_files) do
 					if string.find(buf_name, file.value, 1, true) then

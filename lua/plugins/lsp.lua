@@ -73,8 +73,8 @@ return {
 			servers.rust_analyzer = {}
 			servers.tsserver = {}
 			servers.dockerls = {}
-			servers.buf = {} --TODO: check this out later, the language server is not yet available in this package
-			servers.bufls = {} --TODO: this is not maintained anymore
+			servers.buf = {} -- TODO: check this out later, the language server is not yet available in this package
+			servers.bufls = {} -- TODO: this is not maintained anymore
 			servers.pylsp = {
 				filetypes = { "py", "tiltfile" },
 			}

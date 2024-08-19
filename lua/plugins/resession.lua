@@ -3,7 +3,21 @@ return {
 	lazy = false,
 	config = function()
 		local resession = require("resession")
-		resession.setup({})
+		resession.setup({
+			buf_filter = function(bufnr)
+				--NOTE: saves only harpooned files
+				local harpoon_files = require("harpoon"):list().items
+				local buf_name = vim.fn.bufname(bufnr)
+
+				for _, file in ipairs(harpoon_files) do
+					if string.find(buf_name, file.value, 1, true) then
+						return true
+					end
+				end
+
+				return false
+			end,
+		})
 		-- Resession does NOTHING automagically, so we have to set up some keymaps
 		vim.keymap.set("n", "<leader>ss", resession.save)
 		vim.keymap.set("n", "<leader>sl", resession.load)

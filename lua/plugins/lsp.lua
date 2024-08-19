@@ -55,7 +55,7 @@ return {
 					-- This may be unwanted, since they displace some of your code
 					if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
 						map("<leader>th", function()
-							vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 						end, "[T]oggle Inlay [H]ints")
 					end
 				end,
@@ -125,6 +125,15 @@ return {
 						-- certain features of an LSP (for example, turning off formatting for tsserver)
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 						server.handlers = vim.tbl_deep_extend("force", {}, handlers, server.handlers or {})
+						-- FIXME: workaround for https://github.com/neovim/neovim/issues/28058
+						for _, v in pairs(server) do
+							if type(v) == "table" and v.workspace then
+								v.workspace.didChangeWatchedFiles = {
+									dynamicRegistration = false,
+									relativePatternSupport = false,
+								}
+							end
+						end
 						require("lspconfig")[server_name].setup(server)
 					end,
 				},

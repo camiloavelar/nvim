@@ -14,8 +14,9 @@ return {
 			vim.keymap.set("n", keys, func, { desc = "Go: " .. desc })
 		end
 
-		map("<leader>tF", "<cmd>GoTestFile<CR>", "Test current file")
-		map("<leader>tf", "<cmd>GoTestFunc -s<CR>", "Test functions")
+		map("<leader>tf", "<cmd>GoTestFile -vF<CR>", "Test current file")
+		map("<leader>tF", "<cmd>GoTestFunc -svF<CR>", "Test functions")
+		map("<leader>tP", "<cmd>GoTestPkg -vF<CR>", "Test package")
 	end,
 	event = "VeryLazy",
 	ft = { "go", "gomod" },

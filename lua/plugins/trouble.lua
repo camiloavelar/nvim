@@ -40,7 +40,7 @@ return {
 			trouble.next("document_diagnostics", { new = false })
 		end, { desc = "Trouble: Next" })
 		vim.keymap.set("n", "<leader>tp", function()
-			trouble.previous("document_diagnostics")
+			trouble.prev("document_diagnostics")
 		end, { desc = "Trouble: Previous" })
 	end,
 }

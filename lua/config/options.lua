@@ -14,6 +14,7 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = false
 
+opt.conceallevel = 2
 -- Appearance
 opt.number = true
 opt.relativenumber = true

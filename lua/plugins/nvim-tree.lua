@@ -45,6 +45,7 @@ return {
 				},
 			},
 			view = {
+				side = "right",
 				width = {
 					min = 40,
 				},

@@ -56,11 +56,11 @@ local config = function()
 				previewer = true,
 				hidden = true,
 				show_line = false,
-				-- file_ignore_patterns = {
-				--   "%_test.*",
-				--   "%_mock.*",
-				--   "%mocks/*",
-				-- },
+				file_ignore_patterns = {
+				  -- "%_test.*",
+				  "%_mock.*",
+				  "%mocks/*",
+				},
 			},
 			git_files = {
 				previewer = true,
@@ -75,9 +75,10 @@ local config = function()
 				previewer = true,
 				hidden = true,
 				file_ignore_patterns = {
-					"%_test.*",
+					-- "%_test.*",
 					"%_mock.*",
 					"%mocks/*",
+					"%.pb.go",
 				},
 			},
 			buffers = {

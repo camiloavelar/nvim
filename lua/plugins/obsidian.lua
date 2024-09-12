@@ -43,6 +43,5 @@ return {
 		map("<leader>of", "<cmd>ObsidianFollowLink<CR>", "FollowLink")
 		map("<leader>or", "<cmd>ObsidianRename<CR>", "Rename")
 		map("<leader>ol", "<cmd>ObsidianQuickSwitch<CR>", "List")
-
 	end,
 }

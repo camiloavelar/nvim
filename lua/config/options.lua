@@ -1,12 +1,13 @@
 local opt = vim.opt
 
 -- Tab / Indentation
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.softtabstop = 2
-opt.expandtab = true
+opt.tabstop = 4
+opt.shiftwidth = 4
+-- opt.softtabstop = 2
+opt.expandtab = false
 opt.smartindent = true
 opt.wrap = false
+
 
 -- Search
 opt.incsearch = true
@@ -15,6 +16,7 @@ opt.smartcase = true
 opt.hlsearch = false
 
 opt.conceallevel = 2
+
 -- Appearance
 opt.number = true
 opt.relativenumber = true

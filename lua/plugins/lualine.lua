@@ -59,7 +59,7 @@ local config = function()
 					git_blame.get_current_blame_text,
 					cond = git_blame.is_blame_text_available,
 					fmt = function(str, _)
-						local maxLength = 87
+						local maxLength = 80
 						local strLen = string.len(str)
 						local truncated = str:sub(0, maxLength)
 

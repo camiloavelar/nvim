@@ -4,8 +4,8 @@ return {
 	opts = {
 		routes = {
 			{
-				view = "notify",
-				filter = { event = "msg_showmode" },
+				filter = { event = "msg_show", find = "Keyboard interrupt" },
+				opts = { skip = true },
 			},
 		},
 		lsp = {
@@ -24,6 +24,12 @@ return {
 			inc_rename = false, -- enables an input dialog for inc-rename.nvim
 			lsp_doc_border = false, -- add a border to hover docs and signature help
 		},
+		cmdline = {
+			view = "cmdline",
+		},
+		messages = {
+			view = "mini",
+		},
 	},
 	dependencies = {
 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -31,13 +37,13 @@ return {
 		-- OPTIONAL:
 		--   `nvim-notify` is only needed, if you want to use the notification view.
 		--   If not available, we use `mini` as the fallback
-		 {
-		 	"rcarriga/nvim-notify",
-		 	config = function()
-		 		require("notify").setup({
-		 			background_colour = "#000000",
-		 		})
-		 	end,
-		 },
+		{
+			"rcarriga/nvim-notify",
+			config = function()
+				require("notify").setup({
+					background_colour = "#000000",
+				})
+			end,
+		},
 	},
 }

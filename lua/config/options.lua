@@ -1,12 +1,13 @@
 local opt = vim.opt
 
 -- Tab / Indentation
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.softtabstop = 2
-opt.expandtab = true
+opt.tabstop = 4
+opt.shiftwidth = 4
+-- opt.softtabstop = 2
+opt.expandtab = false
 opt.smartindent = true
 opt.wrap = false
+
 
 -- Search
 opt.incsearch = true
@@ -14,15 +15,24 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = false
 
+opt.conceallevel = 2
+
 -- Appearance
 opt.number = true
 opt.relativenumber = true
 opt.termguicolors = true
-opt.colorcolumn = "100"
+opt.colorcolumn = "150"
 opt.signcolumn = "yes"
-opt.cmdheight = 1
+opt.cmdheight = 0
 opt.scrolloff = 10
 opt.completeopt = "menuone,noinsert,noselect"
+opt.guicursor =
+	"n-v-c:block,i-ci-ve:ver20,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
+vim.cmd("highlight TreesitterContext guifg=#ffffff guibg=#131313")
+vim.cmd("highlight TreesitterContextLineNumber guifg=#aaaaaa guibg=NONE")
+vim.cmd("set cursorline")
+vim.cmd("highlight CursorLineNr guifg=NONE guibg=NONE")
+vim.cmd("highlight CursorLine guibg=#111111")
 
 -- Behaviour
 opt.hidden = true
@@ -39,8 +49,6 @@ opt.iskeyword:append("-")
 opt.mouse:append("a")
 opt.clipboard:append("unnamedplus")
 opt.modifiable = true
-opt.guicursor =
-	"n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
 opt.encoding = "UTF-8"
 opt.showmode = false
-
+opt.fixendofline = false

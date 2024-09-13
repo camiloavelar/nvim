@@ -2,17 +2,10 @@ return {
 	"folke/noice.nvim",
 	event = "VeryLazy",
 	opts = {
-		{
-			routes = {
-				view = "notify",
-				filter = { event = "msg_showmode" },
-			},
+		routes = {
 			{
-				filter = {
-					event = "notify",
-					find = "No information available",
-				},
-				skip = true,
+				filter = { event = "msg_show", find = "Keyboard interrupt" },
+				opts = { skip = true },
 			},
 		},
 		lsp = {

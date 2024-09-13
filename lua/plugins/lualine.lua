@@ -55,9 +55,33 @@ local config = function()
 				},
 			},
 			lualine_c = {
-				{ git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
+				{
+					git_blame.get_current_blame_text,
+					cond = git_blame.is_blame_text_available,
+					fmt = function(str, _)
+						local maxLength = 87
+						local strLen = string.len(str)
+						local truncated = str:sub(0, maxLength)
+
+						if strLen > maxLength then
+							return truncated .. "..."
+						end
+
+						return truncated
+					end,
+				},
 			},
-			lualine_x = { "encoding", "fileformat", "filetype", lspStatus },
+			lualine_x = {
+				{
+					require("noice").api.statusline.mode.get,
+					cond = require("noice").api.statusline.mode.has,
+					color = { fg = "#ff9e64" },
+				},
+				"encoding",
+				"fileformat",
+				"filetype",
+				lspStatus,
+			},
 			lualine_y = { "progress" },
 			lualine_z = { "location" },
 		},

@@ -71,7 +71,7 @@ return {
 
 			servers.gopls = {}
 			servers.rust_analyzer = {}
-			servers.tsserver = {}
+			servers.ts_ls = {}
 			servers.dockerls = {}
 			servers.buf = {} -- TODO: check this out later, the language server is not yet available in this package
 			servers.bufls = {} -- TODO: this is not maintained anymore
@@ -133,9 +133,6 @@ return {
 									relativePatternSupport = false,
 								}
 							end
-						end
-						if server_name == "tsserver" then
-							server_name = "ts_ls"
 						end
 						require("lspconfig")[server_name].setup(server)
 					end,

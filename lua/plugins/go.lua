@@ -10,13 +10,22 @@ return {
 			lsp_cfg = false,
 		})
 
-		local map = function(keys, func, desc)
-			vim.keymap.set("n", keys, func, { desc = "Go: " .. desc })
-		end
+		vim.api.nvim_create_autocmd("LspAttach", {
+			group = vim.api.nvim_create_augroup("go.nvim", { clear = true }),
+			pattern = "*.go",
+			callback = function(_)
+				local map = function(keys, func, desc)
+					vim.keymap.set("n", keys, func, { desc = "Go: " .. desc })
+				end
 
-		map("<leader>tf", "<cmd>GoTestFile -vF<CR>", "Test current file")
-		map("<leader>tF", "<cmd>GoTestFunc -svF<CR>", "Test functions")
-		map("<leader>tP", "<cmd>GoTestPkg -vF<CR>", "Test package")
+				map("<leader>tf", "<cmd>GoTestFile -vF<CR>", "Test current file")
+				map("<leader>tF", "<cmd>GoTestFunc -svF<CR>", "Test functions")
+				map("<leader>tP", "<cmd>GoTestPkg -vF<CR>", "Test package")
+				map("<leader>fF", require("go.format").goimports, "[F]ormat buffer")
+				map("<leader>ge", "<cmd>GoIfErr<CR>", "Add If[E]rr")
+				map("<leader>gf", "<cmd>GoFillStruct<CR>", "[F]ill struct")
+			end,
+		})
 	end,
 	event = "VeryLazy",
 	ft = { "go", "gomod" },

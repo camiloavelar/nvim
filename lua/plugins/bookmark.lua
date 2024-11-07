@@ -1,11 +1,13 @@
 return {
-	"tomasky/bookmarks.nvim",
+	"camiloavelar/bookmarks.nvim",
 	event = "VeryLazy",
 	branch = "main",
 	config = function()
 		require("bookmarks").setup({
 			-- sign_priority = 8,  --set bookmark sign priority to cover other sign
-			save_file = vim.fn.expand("$HOME/.bookmarks"), -- bookmarks save file path
+			-- save_file = vim.fn.expand("$HOME/.bookmarks"), -- bookmarks save file path
+			scoped = true,
+			save_file = vim.fn.expand("$HOME/.config/nvim/bookmarks"), -- bookmarks save file path
 			keywords = {
 				-- FIXME: find better signs
 				["@t"] = "☑️ ", -- mark annotation startswith @t ,signs this icon as `Todo`
@@ -25,7 +27,12 @@ return {
 				map("n", "<leader>mn", bm.bookmark_next, { desc = "Jump to next bookmark on buffer" }) -- jump to next mark in local buffer
 				map("n", "<leader>mp", bm.bookmark_prev, { desc = "Jump to previous bookmark on buffer" }) -- jump to previous mark in local buffer
 				map("n", "<leader>mL", bm.bookmark_list, { desc = "Show bookmarks on quickfix" }) -- show marked file list in quickfix window
-				map("n", "<leader>ml", require("telescope").extensions.bookmarks.list, { desc = "Open bookmarks on Telescope" }) -- show marked file list in telescope
+				map(
+					"n",
+					"<leader>ml",
+					require("telescope").extensions.bookmarks.list,
+					{ desc = "Open bookmarks on Telescope" }
+				) -- show marked file list in telescope
 				map("n", "<leader>mx", bm.bookmark_clear_all, { desc = "Removes all bookmarks" }) -- removes all bookmarks
 			end,
 		})

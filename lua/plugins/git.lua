@@ -26,6 +26,7 @@ return {
 		event = "VeryLazy",
 		config = function()
 			require("gitblame").setup({
+				delay = 200,
 				enabled = true,
 				date_format = "%d/%m/%Y",
 				message_when_not_committed = "Oh please, commit this !",
@@ -63,6 +64,9 @@ return {
 		event = "VeryLazy",
 		config = function()
 			require("gitsigns").setup({
+				current_line_blame_opts = {
+					delay = 200,
+				},
 				on_attach = function(bufnr)
 					local gitsigns = require("gitsigns")
 
@@ -102,6 +106,7 @@ return {
 					map("n", "<leader>hu", gitsigns.undo_stage_hunk, { desc = "Gitsigns: Undo stage hunk" })
 					map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "Gitsigns: Reset buffer" })
 					map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "Gitsigns: Preview hunk" })
+					map("n", "<leader>hB", gitsigns.toggle_current_line_blame, { desc = "Gitsigns: Toggle current line blame" })
 					map("n", "<leader>hb", function()
 						gitsigns.blame_line({ full = true })
 					end, { desc = "Gitsigns: Blame line" })

@@ -8,6 +8,8 @@ return {
 	config = function()
 		require("go").setup({
 			lsp_cfg = false,
+			gofmt = "gofumpt",
+			run_in_floaterm = true,
 		})
 
 		vim.api.nvim_create_autocmd("LspAttach", {

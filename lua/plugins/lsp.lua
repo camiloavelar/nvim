@@ -54,7 +54,9 @@ return {
 					--
 					-- This may be unwanted, since they displace some of your code
 					if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-						map("<leader>th", function()
+						map("<leader>i", function()
+							-- local status = vim.lsp.inlay_hint.is_enabled() and "OFF" or "ON"
+							-- vim.api.nvim_notify("Toggling inlay hints " .. status, vim.log.levels.INFO, {})
 							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 						end, "[T]oggle Inlay [H]ints")
 					end
@@ -69,7 +71,19 @@ return {
 			local servers = {}
 
 			servers.dcm = {}
-			servers.gopls = {}
+			servers.gopls = {
+				settings = {
+					gopls = {
+						-- https://github.com/golang/tools/blob/61415bee33fa1d798499691290df4eaf9e438c03/gopls/doc/inlayHints.md
+						hints = {
+							parameterNames = true,
+							assignVariableTypes = true,
+							functionTypeParameters = true,
+							rangeVariableTypes = true,
+						},
+					},
+				},
+			}
 			servers.rust_analyzer = {}
 			servers.ts_ls = {}
 			servers.dockerls = {}

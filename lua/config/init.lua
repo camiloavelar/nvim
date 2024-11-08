@@ -22,6 +22,9 @@ local opts = {
 	defaults = {
 		lazy = true,
 	},
+	dev = {
+		path = "~/personal/nvim-plugins",
+	},
 	install = {
 		colorscheme = { "catppuccin" },
 	},

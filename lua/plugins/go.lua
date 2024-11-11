@@ -1,5 +1,5 @@
 return {
-	"camiloavelar/go.nvim",
+	"ray-x/go.nvim",
 	dev = false,
 	dependencies = { -- optional packages
 		"ray-x/guihua.lua",
@@ -10,6 +10,7 @@ return {
 		require("go").setup({
 			lsp_cfg = false,
 			gofmt = "gofumpt",
+			comment_placeholder = "",
 			run_in_floaterm = true,
 			lsp_inlay_hints = {
 				enable = false,
@@ -32,6 +33,7 @@ return {
 				map("<leader>ge", "<cmd>GoIfErr<CR>", "Add If[E]rr")
 				map("<leader>gf", "<cmd>GoFillStruct<CR>", "[F]ill struct")
 				map("<leader>ga", "<cmd>GoAddTest<CR>", "[A]dd test")
+				map("<leader>gc", "<cmd>GoCmt<CR>", "[C]omment")
 			end,
 		})
 	end,

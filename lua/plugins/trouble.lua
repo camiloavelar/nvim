@@ -12,6 +12,10 @@ return {
 					mode = "diagnostics",
 					filter = { buf = 0, severity = vim.diagnostic.severity.ERROR },
 				},
+				document_diagnostics_w = {
+					mode = "diagnostics",
+					filter = { buf = 0, severity = vim.diagnostic.severity.WARN },
+				},
 				workspace_diagnostics = {
 					mode = "diagnostics",
 					filter = {
@@ -23,6 +27,9 @@ return {
 		vim.keymap.set("n", "<leader>tt", function()
 			require("trouble").toggle("document_diagnostics")
 		end, { desc = "Trouble" })
+		vim.keymap.set("n", "<leader>tT", function()
+			require("trouble").toggle("document_diagnostics_w")
+		end, { desc = "Trouble Warning" })
 		vim.keymap.set("n", "<leader>tw", function()
 			require("trouble").toggle("workspace_diagnostics")
 		end, { desc = "Trouble: Workspace Diagnostics" })

@@ -26,6 +26,7 @@ return {
 		event = "VeryLazy",
 		config = function()
 			require("gitblame").setup({
+				delay = 200,
 				enabled = true,
 				date_format = "%d/%m/%Y",
 				message_when_not_committed = "Oh please, commit this !",
@@ -34,11 +35,18 @@ return {
 	},
 	{
 		"tpope/vim-fugitive",
+		dependencies = {
+			"tpope/vim-rhubarb",
+		},
 		event = "VeryLazy",
 		keys = {
 			mapkey("<leader>gs", "Git", "n"),
 		},
 		config = function()
+			vim.keymap.set("n", "<leader>ha", "<CMD>GBrowse<CR>", { desc = "Git: Open in browser" })
+			vim.keymap.set("v", "<leader>ha", ":'<,'>GBrowse<CR>", { desc = "Git: Open in browser" })
+			vim.keymap.set("n", "<leader>hA", "<CMD>GBrowse!<CR>", { desc = "Git: URL to clipboard" })
+			vim.keymap.set("v", "<leader>hA", ":'<,'>GBrowse!<CR>", { desc = "Git: URL to clipboard" })
 			local CamiloAvelar_Fugitive = vim.api.nvim_create_augroup("CamiloAvelar_Fugitive", {})
 			local autocmd = vim.api.nvim_create_autocmd
 			autocmd("BufWinEnter", {
@@ -63,6 +71,9 @@ return {
 		event = "VeryLazy",
 		config = function()
 			require("gitsigns").setup({
+				current_line_blame_opts = {
+					delay = 200,
+				},
 				on_attach = function(bufnr)
 					local gitsigns = require("gitsigns")
 
@@ -90,25 +101,31 @@ return {
 					end)
 
 					-- Actions
-					map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "Gitsigns: Stage hunk" })
-					map("n", "<leader>hr", gitsigns.reset_hunk, { desc = "Gitsigns: Reset hunk" })
+					map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "Git: Stage hunk" })
+					map("n", "<leader>hr", gitsigns.reset_hunk, { desc = "Git: Reset hunk" })
 					map("v", "<leader>hs", function()
 						gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-					end, { desc = "Gitsigns: Stage hunk" })
+					end, { desc = "Git: Stage hunk" })
 					map("v", "<leader>hr", function()
 						gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-					end, { desc = "Gitsigns: Reset hunk" })
-					map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "Gitsigns: Stage buffer" })
-					map("n", "<leader>hu", gitsigns.undo_stage_hunk, { desc = "Gitsigns: Undo stage hunk" })
-					map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "Gitsigns: Reset buffer" })
-					map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "Gitsigns: Preview hunk" })
+					end, { desc = "Git: Reset hunk" })
+					map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "Git: Stage buffer" })
+					map("n", "<leader>hu", gitsigns.undo_stage_hunk, { desc = "Git: Undo stage hunk" })
+					map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "Git: Reset buffer" })
+					map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "Git: Preview hunk" })
+					map(
+						"n",
+						"<leader>hB",
+						gitsigns.toggle_current_line_blame,
+						{ desc = "Git: Toggle current line blame" }
+					)
 					map("n", "<leader>hb", function()
 						gitsigns.blame_line({ full = true })
-					end, { desc = "Gitsigns: Blame line" })
-					map("n", "<leader>hd", gitsigns.diffthis, { desc = "Gitsigns: Diff this" })
+					end, { desc = "Git: Blame line" })
+					map("n", "<leader>hd", gitsigns.diffthis, { desc = "Git: Diff this" })
 					map("n", "<leader>hD", function()
 						gitsigns.diffthis("~")
-					end, { desc = "Gitsigns: Diff this (cached)" })
+					end, { desc = "Git: Diff this (cached)" })
 
 					-- Text object
 					map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")

@@ -57,9 +57,9 @@ local config = function()
 				hidden = true,
 				show_line = false,
 				file_ignore_patterns = {
-				  -- "%_test.*",
-				  "%_mock.*",
-				  "%mocks/*",
+					-- "%_test.*",
+					"%_mock.*",
+					"%mocks/*",
 				},
 			},
 			git_files = {
@@ -123,7 +123,7 @@ return {
 		mapkey("<leader>fg", "Telescope live_grep", "n"),
 		mapkey("<leader>fb", "Telescope buffers sort_mru=true", "n"),
 		mapkey("<leader>bl", "Telescope buffers", "n"),
-		mapkey("<leader>gc", "Telescope git_commits", "n"),
+		mapkey("<leader>hc", "Telescope git_commits", "n", { desc = "Git: Telescope commits" }),
 		mapkey("<leader>gb", "Telescope git_branches", "n"),
 		mapkey("<leader>ts", "Telescope treesitter", "n"),
 		mapkey("<leader>/", "Telescope current_buffer_fuzzy_find", "n"),

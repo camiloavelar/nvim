@@ -54,7 +54,9 @@ return {
 					--
 					-- This may be unwanted, since they displace some of your code
 					if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-						map("<leader>th", function()
+						map("<leader>i", function()
+							-- local status = vim.lsp.inlay_hint.is_enabled() and "OFF" or "ON"
+							-- vim.api.nvim_notify("Toggling inlay hints " .. status, vim.log.levels.INFO, {})
 							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 						end, "[T]oggle Inlay [H]ints")
 					end
@@ -66,15 +68,44 @@ return {
 				dynamicRegistration = false,
 				lineFoldingOnly = true,
 			}
-
 			local servers = {}
 
-			servers.gopls = {}
+			servers.dcm = {}
+			servers.gopls = {
+				settings = {
+					gopls = {
+						-- https://github.com/golang/tools/blob/61415bee33fa1d798499691290df4eaf9e438c03/gopls/doc/inlayHints.md
+						hints = {
+							parameterNames = true,
+							assignVariableTypes = true,
+							functionTypeParameters = true,
+							rangeVariableTypes = true,
+						},
+					},
+				},
+			}
 			servers.rust_analyzer = {}
 			servers.ts_ls = {}
 			servers.dockerls = {}
-			servers.buf = {} -- TODO: check this out later, the language server is not yet available in this package
-			servers.bufls = {} -- TODO: this is not maintained anymore
+			servers.golangci_lint_ls = {
+				filetypes = { "go", "gomod" },
+				cmd = { "golangci-lint-langserver" },
+				init_options = {
+					command = {
+						"golangci-lint",
+						"run",
+						"--fast",
+						"--new",
+						"-c",
+						"~/projects/required-workflows/.github/config/.golangci-lint-settings.yaml",
+						"--out-format",
+						"json",
+						"--allow-parallel-runners",
+						"--issues-exit-code=1",
+					},
+				},
+			}
+			servers.buf = {}
 			servers.pylsp = {
 				filetypes = { "py", "tiltfile" },
 			}
@@ -101,6 +132,8 @@ return {
 				"stylua",
 			})
 
+			servers.buf_ls = {}
+
 			local _border = "rounded"
 
 			vim.diagnostic.config({
@@ -113,6 +146,23 @@ return {
 				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = _border }),
 				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border }),
 			}
+
+			require("lspconfig").sourcekit.setup({
+				filetypes = { "swift", "objective-c", "objc", "objective-cpp" },
+				capabilities = vim.tbl_deep_extend("force", {}, capabilities, {
+					workspace = {
+						didChangeWatchedFiles = {
+							dynamicRegistration = true,
+						},
+					},
+				}),
+				handlers = handlers,
+			})
+
+			require("lspconfig").dartls.setup({
+				capabilities = capabilities,
+				handlers = handlers,
+			})
 
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 			require("mason-lspconfig").setup({

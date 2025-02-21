@@ -1,6 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
-  "CopilotChat.nvim": { "branch": "main", "commit": "07d7253e9929cb7e7f9faf51bcec2cd0c46821df" },
+  "CopilotChat.nvim": { "branch": "main", "commit": "00d2f40685beb60b1f7595c11c85c3a57ae48d54" },
   "LuaSnip": { "branch": "master", "commit": "c9b9a22904c97d0eb69ccb9bab76037838326817" },
   "bookmarks.nvim": { "branch": "main", "commit": "62a78b5a0410d9073f883bfaa392130ac531843f" },
   "bufdelete.nvim": { "branch": "master", "commit": "f6bcea78afb3060b198125256f897040538bcb81" },

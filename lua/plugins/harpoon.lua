@@ -8,6 +8,8 @@ return {
 
 		harpoon:setup()
 
+		vim.keymap.set("n", "<leader>bb", "<CMD>e #<CR>", { desc = "Toggle last buffer" })
+
 		vim.keymap.set("n", "<leader>a", function()
 			harpoon:list():add()
 		end, { desc = "Harpoon add file" })

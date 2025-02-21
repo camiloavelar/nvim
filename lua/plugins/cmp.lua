@@ -33,11 +33,20 @@ return {
 		--  into multiple repos for maintenance purposes.
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
+		"zbirenbaum/copilot-cmp",
 	},
 	config = function()
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		luasnip.config.setup({})
+
+		local has_words_before = function()
+			if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+				return false
+			end
+			local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+			return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+		end
 
 		cmp.setup({
 			snippet = {
@@ -52,6 +61,13 @@ return {
 			--
 			-- No, but seriously. Please read `:help ins-completion`, it is really good!
 			mapping = cmp.mapping.preset.insert({
+				["<Tab>"] = vim.schedule_wrap(function(fallback)
+					if cmp.visible() and has_words_before() then
+						cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+					else
+						fallback()
+					end
+				end),
 				-- Select the [n]ext item
 				["<C-j>"] = cmp.mapping.select_next_item(),
 				-- Select the [p]revious item
@@ -97,6 +113,7 @@ return {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
+				{ name = "copilot" },
 			},
 		})
 	end,

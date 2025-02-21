@@ -9,6 +9,9 @@ vim.keymap.set("n", "<leader>tl", vim.diagnostic.setloclist, { desc = "Open diag
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true, noremap = true })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true, noremap = true })
 
+vim.keymap.set("n", "<leader>[", ":cnext<CR>", { desc = "Go to next quickfix" })
+vim.keymap.set("n", "<leader>]", ":cprev<CR>", { desc = "Go to previous quickfix" })
+
 -- Buffer Navigation
 mapkey("<leader>bn", "bnext", "n") -- Next buffer
 mapkey("<leader>bp", "bprevious", "n") -- Prev buffer

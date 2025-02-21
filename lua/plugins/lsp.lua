@@ -71,22 +71,6 @@ return {
 			local servers = {}
 
 			servers.dcm = {}
-			servers.gopls = {
-				settings = {
-					gopls = {
-						-- https://github.com/golang/tools/blob/61415bee33fa1d798499691290df4eaf9e438c03/gopls/doc/inlayHints.md
-						hints = {
-							parameterNames = true,
-							assignVariableTypes = true,
-							functionTypeParameters = true,
-							rangeVariableTypes = true,
-						},
-					},
-				},
-			}
-			servers.rust_analyzer = {}
-			servers.ts_ls = {}
-			servers.dockerls = {}
 			servers.golangci_lint_ls = {
 				filetypes = { "go", "gomod" },
 				cmd = { "golangci-lint-langserver" },
@@ -105,6 +89,22 @@ return {
 					},
 				},
 			}
+			servers.gopls = {
+				settings = {
+					gopls = {
+						-- https://github.com/golang/tools/blob/61415bee33fa1d798499691290df4eaf9e438c03/gopls/doc/inlayHints.md
+						hints = {
+							parameterNames = true,
+							assignVariableTypes = true,
+							functionTypeParameters = true,
+							rangeVariableTypes = true,
+						},
+					},
+				},
+			}
+			servers.rust_analyzer = {}
+			servers.ts_ls = {}
+			servers.dockerls = {}
 			servers.buf = {}
 			servers.pylsp = {
 				filetypes = { "py", "tiltfile" },
@@ -146,6 +146,10 @@ return {
 				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = _border }),
 				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border }),
 			}
+
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+				border = "rounded",
+			})
 
 			require("lspconfig").sourcekit.setup({
 				filetypes = { "swift", "objective-c", "objc", "objective-cpp" },

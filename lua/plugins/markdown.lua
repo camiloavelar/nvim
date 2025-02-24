@@ -4,23 +4,27 @@ return {
 		event = "VeryLazy",
 		-- dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-		config = function ()
+		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+		config = function()
 			require("render-markdown").setup({
+				file_types = { "markdown", "copilot-chat" },
 				heading = {
-					width = 'block',
+					width = "block",
 					backgrounds = {
-						'None',
+						"None",
 					},
 				},
 				code = {
-					width = 'block',
-					highlight = 'None',
-					highlight_inline = 'None',
-					below = '─',
+					width = "block",
+					left_pad = 2,
+					right_pad = 10,
+					min_width = 45,
+					-- highlight = 'None',
+					-- highlight_inline = 'None',
+					below = "─",
 				},
 			})
-		end
+		end,
 	},
 	{
 		"epwalsh/obsidian.nvim",

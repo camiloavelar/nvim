@@ -5,7 +5,7 @@ local lspStatus = {
 	function()
 		local msg = "No LSP detected"
 		local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-		local clients = vim.lsp.get_active_clients()
+		local clients = vim.lsp.get_clients()
 		if next(clients) == nil then
 			return msg
 		end
@@ -45,7 +45,7 @@ local config = function()
 				"branch",
 				{
 					"filename",
-					path = 0,
+					path = 1,
 					symbols = {
 						modified = "", -- Text to show when the file is modified.
 						readonly = "󰌾", -- Text to show when the file is non-modifiable or readonly.
@@ -59,7 +59,7 @@ local config = function()
 					git_blame.get_current_blame_text,
 					cond = git_blame.is_blame_text_available,
 					fmt = function(str, _)
-						local maxLength = 80
+						local maxLength = 65
 						local strLen = string.len(str)
 						local truncated = str:sub(0, maxLength)
 
@@ -77,8 +77,8 @@ local config = function()
 					cond = require("noice").api.statusline.mode.has,
 					color = { fg = "#ff9e64" },
 				},
-				"encoding",
-				"fileformat",
+				-- "encoding",
+				-- "fileformat",
 				"filetype",
 				lspStatus,
 			},

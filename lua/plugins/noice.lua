@@ -7,6 +7,10 @@ return {
 				filter = { event = "msg_show", find = "Keyboard interrupt" },
 				opts = { skip = true },
 			},
+			{
+				filter = { event = "notify", find = "documentHighlight" },
+				opts = { skip = true },
+			},
 		},
 		lsp = {
 			-- override markdown rendering so that **cmp** and other plugins use **Treesitter**

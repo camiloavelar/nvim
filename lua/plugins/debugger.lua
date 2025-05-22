@@ -70,7 +70,7 @@ return {
 		vim.keymap.set("n", "<leader>di", require("dap").step_into, { desc = "Debugger: Step into" })
 		vim.keymap.set("n", "<leader>dv", require("dap").step_out, { desc = "Debugger: Step out" })
 		vim.keymap.set("n", "<leader>dc", require("dap").run_to_cursor, { desc = "Debugger: Run to cursor" })
-		vim.keymap.set("n", "<leader>?", function ()
+		vim.keymap.set("n", "<leader>?", function()
 			require("dapui").eval(nil, { enter = true })
 		end, { desc = "Debugger: Eval under cursor" })
 	end,

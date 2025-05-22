@@ -25,10 +25,12 @@ return {
 					vim.keymap.set("n", keys, func, { desc = "Go: " .. desc })
 				end
 
-				map("<leader>tf", "<cmd>GoTestFile -vF<CR>", "[T]est current [f]ile")
-				map("<leader>tF", "<cmd>GoTestFunc -vF<CR>", "[T]est current [F]unction")
-				map("<leader>ts", "<cmd>GoTestFunc -svF<CR>", "[T]est [s]elect functions")
-				map("<leader>tP", "<cmd>GoTestPkg -vF<CR>", "Test package")
+				map("<leader>tf", "<cmd>GoTestFile -vF -C cov.out<CR>", "[T]est current [f]ile")
+				map("<leader>tc", "<cmd>GoCoverage -t<CR>", "[T]est current file with [C]overage")
+				map("<leader>tC", "<cmd>GoCoverage -f cov.out<CR>", "Load [T]est [C]overage file")
+				map("<leader>tF", "<cmd>GoTestFunc -vF -C cov.out<CR>", "[T]est current [F]unction")
+				map("<leader>ts", "<cmd>GoTestFunc -svF -C cov.out<CR>", "[T]est [s]elect functions")
+				map("<leader>tP", "<cmd>GoTestPkg -vF -C cov.out<CR>", "Test package")
 				map("<leader>fF", require("go.format").goimports, "[F]ormat buffer")
 				map("<leader>ge", "<cmd>GoIfErr<CR>", "Add If[E]rr")
 				map("<leader>gf", "<cmd>GoFillStruct<CR>", "[F]ill struct")

@@ -3,16 +3,18 @@ local mapkey = require("util.keymapper").mapkey
 local config = function()
 	local telescope = require("telescope")
 	local builtin = require("telescope.builtin")
-
-	vim.keymap.set("n", "<leader>fw", function()
-		local word = vim.fn.expand("<cword>")
-		builtin.grep_string({ search = word })
-	end, { desc = "Search for word under cursor" })
+	local lga_actions = require("telescope-live-grep-args.actions")
+	local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
+	local live_grep_postfix = " --iglob !*_test* --iglob !*_mock.* --iglob !*.pb.go"
 
 	vim.keymap.set("n", "<leader>fW", function()
 		local word = vim.fn.expand("<cWORD>")
 		builtin.grep_string({ search = word })
 	end, { desc = "Search for full word under cursor" })
+
+	vim.keymap.set("n", "<leader>fw", function()
+		live_grep_args_shortcuts.grep_word_under_cursor({ postfix = live_grep_postfix })
+	end, { desc = "Search for word under cursor" })
 
 	telescope.setup({
 		defaults = {
@@ -92,6 +94,22 @@ local config = function()
 			},
 			fzf = {},
 			wrap_results = true,
+			live_grep_args = {
+				auto_quoting = true, -- enable/disable auto-quoting
+				-- define mappings, e.g.
+				mappings = { -- extend mappings
+					i = {
+						["<C-t>"] = lga_actions.quote_prompt({ postfix = " --iglob !*_test.go --iglob !*_mock.*" }),
+						["<C-h>"] = lga_actions.quote_prompt({ postfix = " --hidden" }),
+						-- freeze the current list and start a fuzzy search in the frozen list
+						["<C-space>"] = lga_actions.to_fuzzy_refine,
+					},
+				},
+				-- ... also accepts theme settings, for example:
+				-- theme = "dropdown", -- use dropdown theme
+				-- theme = { }, -- use own theme spec
+				-- layout_config = { mirror=true }, -- mirror preview pane
+			},
 		},
 	})
 
@@ -100,6 +118,7 @@ local config = function()
 	pcall(require("telescope").load_extension, "frecency")
 	pcall(require("telescope").load_extension, "git_worktree")
 	pcall(require("telescope").load_extension, "bookmarks")
+	pcall(require("telescope").load_extension, "live_grep_args")
 end
 
 return {
@@ -112,6 +131,10 @@ return {
 		"nvim-telescope/telescope-smart-history.nvim",
 		"nvim-telescope/telescope-frecency.nvim",
 		"kkharji/sqlite.lua",
+		{
+			"nvim-telescope/telescope-live-grep-args.nvim",
+			version = "^1.0.0",
+		},
 	},
 	config = config,
 	keys = {
@@ -120,7 +143,12 @@ return {
 		mapkey("<leader>pF", "Telescope frecency", "n"),
 		mapkey("<leader>pf", "Telescope find_files", "n"),
 		mapkey("<C-p>", "Telescope git_files", "n"),
-		mapkey("<leader>fg", "Telescope live_grep", "n"),
+		mapkey(
+			"<leader>fg",
+			"lua require('telescope').extensions.live_grep_args.live_grep_args()",
+			"n",
+			{ desc = "Search for word" }
+		),
 		mapkey("<leader>fb", "Telescope buffers sort_mru=true", "n"),
 		mapkey("<leader>bl", "Telescope buffers", "n"),
 		mapkey("<leader>hc", "Telescope git_commits", "n", { desc = "Git: Telescope commits" }),

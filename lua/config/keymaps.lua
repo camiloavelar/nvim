@@ -12,7 +12,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>[", ":cnext<CR>", { desc = "Go to next quickfix" })
 vim.keymap.set("n", "<leader>]", ":cprev<CR>", { desc = "Go to previous quickfix" })
 
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute the current file" })
+vim.keymap.set("n", "<leader>x", "<cmd>source %<CR>", { desc = "Execute the current file" })
 
 -- Buffer Navigation
 mapkey("<leader>bn", "bnext", "n") -- Next buffer

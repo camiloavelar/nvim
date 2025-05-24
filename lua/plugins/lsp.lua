@@ -3,10 +3,10 @@ return {
 		"neovim/nvim-lspconfig",
 		lazy = false,
 		dependencies = {
-			-- Automatically install LSPs and related tools to stdpath for Neovim
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			"saghen/blink.cmp",
 		},
 		config = function()
 			local diagnostic_signs = { Error = " ", Warn = " ", Hint = "󱧤", Info = "" }
@@ -58,33 +58,40 @@ return {
 					end
 				end,
 			})
+
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
+			capabilities =
+				vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
+			capabilities = vim.tbl_deep_extend("force", capabilities, {
+				textDocument = {
+					foldingRange = {
+						dynamicRegistration = false,
+						lineFoldingOnly = true,
+					},
+				},
+			})
+
 			local servers = {}
 
 			servers.dcm = {}
-			servers.golangci_lint_ls = {
-				filetypes = { "go", "gomod" },
-				cmd = { "golangci-lint-langserver" },
-				init_options = {
-					command = {
-						"golangci-lint",
-						"run",
-						"--fast",
-						"--new",
-						"-c",
-						"~/projects/required-workflows/.github/config/.golangci-lint-settings.yaml",
-						"--out-format",
-						"json",
-						"--allow-parallel-runners",
-						"--issues-exit-code=1",
-					},
-				},
-			}
+			-- servers.golangci_lint_ls = {
+			-- 	filetypes = { "go", "gomod" },
+			-- 	cmd = { "golangci-lint-langserver" },
+			-- 	init_options = {
+			-- 		command = {
+			-- 			"golangci-lint",
+			-- 			"run",
+			-- 			"--fast",
+			-- 			"--new",
+			-- 			"-c",
+			-- 			"~/projects/required-workflows/.github/config/.golangci-lint-settings.yaml",
+			-- 			"--out-format",
+			-- 			"json",
+			-- 			"--allow-parallel-runners",
+			-- 			"--issues-exit-code=1",
+			-- 		},
+			-- 	},
+			-- }
 			servers.gopls = {
 				settings = {
 					gopls = {
@@ -120,6 +127,15 @@ return {
 					},
 				},
 			}
+			servers.yamlls = {
+				settings = {
+					yaml = {
+						schemas = {
+							["file:///Users/camiloavelar/.config/nvim/lua/config/openapi.yaml"] = "/*",
+						},
+					},
+				},
+			}
 
 			require("mason").setup()
 
@@ -138,15 +154,6 @@ return {
 
 			require("lspconfig.ui.windows").default_options.border = _border
 
-			local handlers = {
-				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = _border }),
-				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border }),
-			}
-
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-				border = "rounded",
-			})
-
 			require("lspconfig").sourcekit.setup({
 				filetypes = { "swift", "objective-c", "objc", "objective-cpp" },
 				capabilities = vim.tbl_deep_extend("force", {}, capabilities, {
@@ -156,16 +163,16 @@ return {
 						},
 					},
 				}),
-				handlers = handlers,
 			})
 
 			require("lspconfig").dartls.setup({
 				capabilities = capabilities,
-				handlers = handlers,
 			})
 
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 			require("mason-lspconfig").setup({
+				ensure_installed = { "lua_ls", "gopls" },
+				automatic_enable = true,
 				automatic_installation = true,
 				handlers = {
 					function(server_name)
@@ -174,7 +181,6 @@ return {
 						-- by the server configuration above. Useful when disabling
 						-- certain features of an LSP (for example, turning off formatting for tsserver)
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						server.handlers = vim.tbl_deep_extend("force", {}, handlers, server.handlers or {})
 						-- FIXME: workaround for https://github.com/neovim/neovim/issues/28058
 						for _, v in pairs(server) do
 							if type(v) == "table" and v.workspace then
@@ -189,6 +195,18 @@ return {
 				},
 			})
 		end,
+	},
+	{ -- LuaLSP
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		event = "VeryLazy",
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		},
 	},
 	{ -- Autoformat
 		"stevearc/conform.nvim",

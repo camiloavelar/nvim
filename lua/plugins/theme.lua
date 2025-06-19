@@ -113,7 +113,6 @@ return {
 						background3 = "#171922",
 						text = "#cdd6f4",
 						white = "#FFFFFF",
-						none = "NONE",
 						base = "#000000",
 						mantle = "#000000",
 						crust = "#000000",

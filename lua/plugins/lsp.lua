@@ -9,16 +9,11 @@ return {
 			"saghen/blink.cmp",
 		},
 		config = function()
-			local diagnostic_signs = { Error = " ", Warn = " ", Hint = "󱧤", Info = "" }
-
-			for type, icon in pairs(diagnostic_signs) do
-				local hl = "DiagnosticSign" .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-			end
-
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 				callback = function(event)
+					require("config.diagnostics").setup()
+
 					local map = function(keys, func, desc)
 						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
@@ -148,26 +143,12 @@ return {
 
 			local _border = "rounded"
 
+			-- Configure diagnostic float border (signs configured in init function)
 			vim.diagnostic.config({
 				float = { border = _border },
 			})
 
 			require("lspconfig.ui.windows").default_options.border = _border
-
-			require("lspconfig").sourcekit.setup({
-				filetypes = { "swift", "objective-c", "objc", "objective-cpp" },
-				capabilities = vim.tbl_deep_extend("force", {}, capabilities, {
-					workspace = {
-						didChangeWatchedFiles = {
-							dynamicRegistration = true,
-						},
-					},
-				}),
-			})
-
-			require("lspconfig").dartls.setup({
-				capabilities = capabilities,
-			})
 
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 			require("mason-lspconfig").setup({
@@ -190,7 +171,9 @@ return {
 								}
 							end
 						end
-						require("lspconfig")[server_name].setup(server)
+						-- Use vim.lsp.config with mason-lspconfig
+						local lspconfig = require("lspconfig")
+						lspconfig[server_name].setup(server)
 					end,
 				},
 			})

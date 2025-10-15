@@ -21,6 +21,8 @@ return {
 			group = vim.api.nvim_create_augroup("go.nvim", { clear = true }),
 			pattern = "*.go",
 			callback = function(_)
+				require("config.diagnostics").setup()
+
 				local map = function(keys, func, desc)
 					vim.keymap.set("n", keys, func, { desc = "Go: " .. desc })
 				end

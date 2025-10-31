@@ -2,6 +2,7 @@ return {
 	{
 		dir = "~/personal/nvim-plugins/goexec.nvim",
 		event = "VeryLazy",
+		enabled = false,
 		config = function()
 			local goexec = require("GoExec")
 			goexec:setup({

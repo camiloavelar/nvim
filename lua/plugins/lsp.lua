@@ -8,6 +8,17 @@ return {
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			"saghen/blink.cmp",
 		},
+		init = function()
+			-- FIXME: workaround for https://github.com/neovim/neovim/issues/28058
+			local make_client_capabilities = vim.lsp.protocol.make_client_capabilities
+			function vim.lsp.protocol.make_client_capabilities()
+				local caps = make_client_capabilities()
+				if caps.workspace then
+					caps.workspace.didChangeWatchedFiles = nil
+				end
+				return caps
+			end
+		end,
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -162,15 +173,6 @@ return {
 						-- by the server configuration above. Useful when disabling
 						-- certain features of an LSP (for example, turning off formatting for tsserver)
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						-- FIXME: workaround for https://github.com/neovim/neovim/issues/28058
-						for _, v in pairs(server) do
-							if type(v) == "table" and v.workspace then
-								v.workspace.didChangeWatchedFiles = {
-									dynamicRegistration = false,
-									relativePatternSupport = false,
-								}
-							end
-						end
 						-- Use vim.lsp.config with mason-lspconfig
 						local lspconfig = require("lspconfig")
 						lspconfig[server_name].setup(server)

@@ -1,8 +1,18 @@
 return {
 	{
+		"supermaven-inc/supermaven-nvim",
+		event = "InsertEnter",
+		config = function()
+			require("supermaven-nvim").setup({
+				ignore_filetypes = { "yaml", "yml", "env" },
+			})
+		end,
+	},
+	{
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
 		event = "InsertEnter",
+		enabled = false,
 		config = function()
 			require("copilot").setup({
 				filetypes = { ["*"] = true },
@@ -19,6 +29,7 @@ return {
 		},
 		build = "make tiktoken", -- Only on MacOS or Linux
 		event = "VeryLazy",
+		enabled = false,
 		keys = {
 			{
 				"<leader>cc",

@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufNewFile", "BufWinEnter" }, {
 	group = lsp_grp,
 	pattern = { "*.env", ".env.*" },
 	callback = function()
-		vim.diagnostic.disable(0)
+		vim.diagnostic.enable(false)
 	end,
 })
 

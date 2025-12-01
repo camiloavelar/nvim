@@ -1,61 +1,34 @@
-local config = function()
-	require("nvim-treesitter.configs").setup({
-		build = ":TSUpdate",
-		indent = {
-			enable = true,
-		},
-		autotag = {
-			enable = true,
-		},
-		event = {
-			"BufReadPre",
-			"BufNewFile",
-		},
-		ensure_installed = {
-			"markdown",
-			"regex",
-			"json",
-			"javascript",
-			"typescript",
-			"yaml",
-			"html",
-			"css",
-			"markdown",
-			"markdown_inline",
-			"bash",
-			"dockerfile",
-			"gitignore",
-			"python",
-			"go",
-		},
-		auto_install = true,
-		highlight = {
-			enable = true,
-			additional_vim_regex_highlighting = true,
-		},
-		textobjects = {
-			select = {
-				enable = true,
-				lookahead = true,
-				keymaps = {
-					["aa"] = "@parameter.outer",
-					["ia"] = "@parameter.inner",
-					["af"] = "@function.outer",
-					["if"] = "@function.inner",
-					["ac"] = "@class.outer",
-					["ic"] = "@class.inner",
-				},
-			},
-		},
-		incremental_selection = {
-			enable = true,
-			keymaps = {
-				init_selection = "<C-s>",
-				node_incremental = "<C-s>",
-				scope_incremental = false,
-				node_decremental = "<BS>",
-			},
-		},
+local treesitter_config = function()
+	require("nvim-treesitter").install({
+		"markdown",
+		"regex",
+		"json",
+		"javascript",
+		"typescript",
+		"yaml",
+		"html",
+		"css",
+		"markdown",
+		"markdown_inline",
+		"bash",
+		"dockerfile",
+		"gitignore",
+		"python",
+		"go",
+	})
+
+	vim.api.nvim_create_autocmd("FileType", {
+		callback = function(args)
+			local treesitter = require("nvim-treesitter")
+			local lang = vim.treesitter.language.get_lang(args.match)
+			if vim.list_contains(treesitter.get_available(), lang) then
+				if not vim.list_contains(treesitter.get_installed(), lang) then
+					treesitter.install(lang):wait()
+				end
+				vim.treesitter.start(args.buf)
+			end
+		end,
+		desc = "Enable nvim-treesitter and install parser if not installed",
 	})
 end
 
@@ -67,12 +40,40 @@ local context_config = function()
 	})
 end
 
+local textobjects_config = function()
+	require("nvim-treesitter-textobjects").setup({
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = {
+				["aa"] = "@parameter.outer",
+				["ia"] = "@parameter.inner",
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				["ic"] = "@class.inner",
+			},
+		},
+	})
+end
+
 return {
-	"nvim-treesitter/nvim-treesitter",
-	event = "BufEnter",
-	config = config,
-	dependencies = {
-		{ "nvim-treesitter/nvim-treesitter-context", config = context_config },
-		"nvim-treesitter/nvim-treesitter-textobjects",
+	{
+		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
+		branch = "main",
+		build = ":TSUpdate",
+		config = treesitter_config,
+		dependencies = {
+			{
+				"nvim-treesitter/nvim-treesitter-context",
+				config = context_config,
+			},
+			{
+				"nvim-treesitter/nvim-treesitter-textobjects",
+				branch = "main",
+				config = textobjects_config,
+			},
+		},
 	},
 }

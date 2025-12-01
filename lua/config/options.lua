@@ -8,6 +8,12 @@ opt.expandtab = false
 opt.smartindent = true
 opt.wrap = false
 
+opt.list = true
+opt.listchars:append("eol:⤦")
+opt.listchars:append("trail:·")
+opt.listchars:append("lead:·")
+opt.listchars:append("tab:▎ ")
+
 -- Search
 opt.incsearch = true
 opt.ignorecase = true

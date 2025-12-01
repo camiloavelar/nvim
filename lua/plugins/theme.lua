@@ -102,6 +102,13 @@ return {
 							TSFunction = { fg = custom_colors.blue2 },
 							TSReturn = { fg = custom_colors.blue1 },
 
+							SnacksIndentScope = { fg = custom_colors.white },
+							SnacksIndent = { fg = custom_colors.background1 },
+							LspReferenceText = { fg = "", bg = "", underline = true },
+							LspReferenceRead = { fg = "", bg = "", underline = true },
+							LspReferenceWrite = { fg = "", bg = "", underline = true },
+							LspReferenceTarget = { fg = "", bg = "", underline = true },
+
 							["@property"] = { link = "TSProperty" },
 							["@parameter"] = { fg = custom_colors.text },
 							["@module"] = { fg = custom_colors.text },

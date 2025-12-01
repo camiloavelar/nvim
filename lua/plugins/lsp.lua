@@ -7,6 +7,7 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			"saghen/blink.cmp",
+			"catppuccin/nvim",
 		},
 		init = function()
 			-- FIXME: workaround for https://github.com/neovim/neovim/issues/28058

@@ -69,4 +69,6 @@ local api = vim.api
 
 -- Comments
 api.nvim_set_keymap("n", "<C-_>", "<leader>ctl", { noremap = false })
+api.nvim_set_keymap("n", "<leader>-", "<leader>ctl", { noremap = false })
 api.nvim_set_keymap("v", "<C-_>", "col", { noremap = false })
+api.nvim_set_keymap("v", "<leader>-", "col", { noremap = false })

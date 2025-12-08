@@ -35,7 +35,7 @@ return {
 		vim.keymap.set("n", "<leader>tt", function()
 			require("trouble").toggle("document_diagnostics")
 		end, { desc = "Trouble: Document Diagnostics" })
-		vim.keymap.set("n", "<leader>te", function()
+		vim.keymap.set("n", "<leader>tE", function()
 			require("trouble").toggle("document_diagnostics_e")
 		end, { desc = "Trouble: Document Errors Diagnostics" })
 		vim.keymap.set("n", "<leader>ti", function()

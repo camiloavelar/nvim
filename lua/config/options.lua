@@ -33,11 +33,7 @@ opt.scrolloff = 10
 opt.completeopt = "menuone,popup,noinsert"
 opt.guicursor =
 	"n-v-c:block,i-ci-ve:ver20,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
-vim.cmd("highlight TreesitterContext guifg=#ffffff guibg=#131313")
-vim.cmd("highlight TreesitterContextLineNumber guifg=#aaaaaa guibg=NONE")
 vim.cmd("set cursorline")
-vim.cmd("highlight CursorLineNr guifg=NONE guibg=NONE")
-vim.cmd("highlight CursorLine guibg=#111111")
 
 -- Behaviour
 opt.hidden = true

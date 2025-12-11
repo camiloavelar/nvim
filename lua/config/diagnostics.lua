@@ -22,7 +22,7 @@ function M.setup()
 	vim.diagnostic.config({
 		virtual_text = true,
 		signs = M.signs,
-		underline = true,
+		underline = false,
 		update_in_insert = false,
 		severity_sort = true,
 	})

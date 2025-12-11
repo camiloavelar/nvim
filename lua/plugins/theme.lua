@@ -57,6 +57,7 @@ return {
 				mantle = "#000000",
 				crust = "#000000",
 				black = "#000000",
+				cursorline = "#1f202d",
 			}
 
 			require("catppuccin").setup({
@@ -68,6 +69,7 @@ return {
 						return {
 							Cursor = { bg = custom_colors.green, fg = custom_colors.black },
 							iCursor = { bg = custom_colors.green, fg = custom_colors.black },
+							CursorLine = { bg = custom_colors.cursorline },
 
 							Constant = { fg = custom_colors.text },
 							String = { fg = custom_colors.teal2 },
@@ -104,10 +106,11 @@ return {
 
 							SnacksIndentScope = { fg = custom_colors.white },
 							SnacksIndent = { fg = custom_colors.background1 },
-							LspReferenceText = { fg = "", bg = "", underline = true },
-							LspReferenceRead = { fg = "", bg = "", underline = true },
-							LspReferenceWrite = { fg = "", bg = "", underline = true },
-							LspReferenceTarget = { fg = "", bg = "", underline = true },
+
+							LspReferenceText = { bg = custom_colors.cursorline, underline = false },
+							LspReferenceRead = { bg = custom_colors.cursorline, underline = false },
+							LspReferenceWrite = { bg = custom_colors.cursorline, underline = false },
+							LspReferenceTarget = { bg = custom_colors.cursorline, underline = false },
 
 							["@property"] = { link = "TSProperty" },
 							["@parameter"] = { fg = custom_colors.text },

@@ -28,4 +28,23 @@ function M.setup()
 	})
 end
 
+vim.api.nvim_create_autocmd("InsertEnter", {
+	pattern = "*",
+	callback = function()
+		vim.diagnostic.config({
+			virtual_text = false, -- Disable virtual text
+			-- You can also disable signs or underlines here if needed
+		})
+	end,
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+	pattern = "*",
+	callback = function()
+		vim.diagnostic.config({
+			virtual_text = true, -- Re-enable virtual text on leaving insert mode
+		})
+	end,
+})
+
 return M

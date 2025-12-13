@@ -30,20 +30,18 @@ return {
 						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
 
-					local telescope = require("telescope.builtin")
+					local fzfLua = require("fzf-lua")
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 					map("<leader>gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-					map("<leader>gd", telescope.lsp_definitions, "[G]oto [D]efinition")
-					map("<leader>gi", telescope.lsp_implementations, "[G]oto [I]mplementation")
-					map("<leader>gt", telescope.lsp_type_definitions, "[G]oto [T]ype Definition")
-					map("<leader>fd", telescope.lsp_references, "[F]ind References")
-					map("<leader>fs", "<cmd>Telescope lsp_document_symbols symbol_width=0.9<CR>", "[F]ind [S]ymbols")
-					map(
-						"<leader>fm",
-						"<cmd>Telescope lsp_document_symbols symbol_width=0.9 symbols=['method','function']<CR>",
-						"[F]ind [M]methods"
-					)
+					map("<leader>gd", fzfLua.lsp_definitions, "[G]oto [D]efinition")
+					map("<leader>gi", fzfLua.lsp_implementations, "[G]oto [I]mplementation")
+					-- map("<leader>gt", fzfLua.lsp_type_definitions, "[G]oto [T]ype Definition")
+					map("<leader>fd", fzfLua.lsp_references, "[F]ind References")
+					map("<leader>fs", "<cmd>FzfLua lsp_document_symbols symbol_width=0.9<CR>", "[F]ind [S]ymbols")
+					map("<leader>fm", function()
+						require("fzf-lua").lsp_document_symbols()
+					end, "[F]ind [M]ethods")
 					map("K", function()
 						local winid = require("ufo").peekFoldedLinesUnderCursor()
 						if not winid then

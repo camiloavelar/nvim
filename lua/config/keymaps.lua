@@ -28,11 +28,9 @@ mapkey("<leader>bp", "bprevious", "n") -- Prev buffer
 mapkey("<leader><S-Tab>", "tabnext", "n") -- Next tab
 
 -- Noice
-mapkey("<leader>fn", "Noice telescope", "n")
 mapkey("<leader>q", "Noice dismiss", "n")
 
 -- Directory Navigatio}n
-mapkey("<leader>pv", "Telescope find_files", "n")
 mapkey("<leader>ee", "NvimTreeFindFileToggle", "n")
 mapkey("<leader>ec", "NvimTreeCollapse", "n")
 
@@ -59,10 +57,12 @@ vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }
 vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
 vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })
 vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
-mapkey("<C-Up>", "resize +2", "n")
-mapkey("<C-Down>", "resize -2", "n")
-mapkey("<C-Left>", "vertical resize +2", "n")
-mapkey("<C-Right>", "vertical resize -2", "n")
+--
+-- Resize panes
+vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "Resize split upwards" })
+vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<CR>", { desc = "Resize split downwards" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize +2<CR>", { desc = "Resize split to the left" })
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize -2<CR>", { desc = "Resize split to the right" })
 
 -- Indenting
 vim.keymap.set("v", "<", "<gv", { silent = true, noremap = true })

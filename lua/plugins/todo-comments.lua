@@ -17,12 +17,6 @@ return {
 			desc = "Prev marked comment",
 		},
 		{
-			"<leader>ft",
-			":TodoTelescope<CR>",
-			desc = "Search todo comments",
-			silent = true,
-		},
-		{
 			"<leader>fT",
 			":TodoTrouble cwd=" .. vim.api.nvim_buf_get_name(0) .. "<CR>",
 			desc = "Search todo comments in current file",

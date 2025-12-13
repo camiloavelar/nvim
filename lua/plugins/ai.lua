@@ -81,11 +81,6 @@ return {
 				end
 			end, { desc = "CopilotChat - Quick chat" })
 
-			vim.keymap.set("n", "<leader>cp", function()
-				local actions = require("CopilotChat.actions")
-				require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
-			end, { desc = "Copilot Prompt actions" })
-
 			vim.keymap.set({ "n", "v" }, "<leader>cf", function()
 				chat.reset()
 				chat.toggle({

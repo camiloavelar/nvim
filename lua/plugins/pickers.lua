@@ -13,6 +13,9 @@ return {
 			defaults = {
 				formatter = "path.dirname_first",
 			},
+			files = {
+				fd_opts = [[--color=never --type f --type l --exclude .git --no-ignore --hidden --exclude data --exclude node_modules]],
+			},
 			fzf_opts = {
 				["--cycle"] = true,
 				["--marker"] = "+",
@@ -42,6 +45,7 @@ return {
 		},
 		keys = {
 			mapkey("<leader>pf", "FzfLua files", "n"),
+			mapkey("<leader>pv", "FzfLua files", "n"),
 			mapkey("<C-p>", "FzfLua git_files", "n"),
 			mapkey("<leader>bl", "FzfLua buffers", "n"),
 			mapkey("<leader>fk", "FzfLua keymaps", "n"),

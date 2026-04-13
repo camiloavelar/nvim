@@ -1,5 +1,8 @@
 local treesitter_config = function()
 	require("nvim-treesitter").install({
+		"vim",
+		"vimdoc",
+		"lua",
 		"markdown",
 		"regex",
 		"json",
@@ -8,7 +11,6 @@ local treesitter_config = function()
 		"yaml",
 		"html",
 		"css",
-		"markdown",
 		"markdown_inline",
 		"bash",
 		"dockerfile",

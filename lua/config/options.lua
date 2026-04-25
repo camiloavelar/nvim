@@ -53,3 +53,5 @@ opt.modifiable = true
 opt.encoding = "UTF-8"
 opt.showmode = false
 opt.fixendofline = false
+
+opt.diffopt:append({ "linematch:60", "algorithm:histogram", "indent-heuristic" })

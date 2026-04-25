@@ -2,6 +2,22 @@ local mapkey = require("util.keymapper").mapkey
 
 return {
 	{
+		"pwntester/octo.nvim",
+		cmd = "Octo",
+		event = "VeryLazy",
+		config = function()
+			require("octo").setup({
+				picker = "fzf-lua",
+				enable_builtin = true,
+			})
+		end,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"ibhagwan/fzf-lua",
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
+	{
 		"f-person/git-blame.nvim",
 		event = "VeryLazy",
 		config = function()

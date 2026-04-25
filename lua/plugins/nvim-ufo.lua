@@ -62,6 +62,13 @@ return {
 		end
 
 		opts["fold_virt_text_handler"] = handler
+		opts["provider_selector"] = function(bufnr, filetype, buftype)
+			local name = vim.api.nvim_buf_get_name(bufnr)
+			if name:match("^octo://") or filetype == "octo" then
+				return ""
+			end
+			return { "lsp", "indent" }
+		end
 
 		require("ufo").setup(opts)
 

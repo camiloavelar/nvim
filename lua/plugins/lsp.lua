@@ -19,11 +19,26 @@ return {
 				end
 				return caps
 			end
+
+			local orig_start = vim.lsp.start
+			vim.lsp.start = function(config, opts)
+				opts = opts or {}
+				local bufnr = opts.bufnr or vim.api.nvim_get_current_buf()
+				if vim.api.nvim_buf_get_name(bufnr):match("^octo://") then
+					return nil
+				end
+				return orig_start(config, opts)
+			end
 		end,
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 				callback = function(event)
+					if vim.api.nvim_buf_get_name(event.buf):match("^octo://") then
+						vim.lsp.buf_detach_client(event.buf, event.data.client_id)
+						return
+					end
+
 					require("config.diagnostics").setup()
 
 					local map = function(keys, func, desc)

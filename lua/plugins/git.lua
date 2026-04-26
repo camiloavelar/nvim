@@ -2,9 +2,49 @@ local mapkey = require("util.keymapper").mapkey
 
 return {
 	{
+		"sindrets/diffview.nvim",
+		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory", "DiffviewToggleFiles", "DiffviewRefresh" },
+		opts = {
+			file_panel = {
+				listing_style = "tree",
+				tree_options = {
+					flatten_dirs = true,
+					folder_statuses = "only_folded",
+				},
+				win_config = {
+					position = "right",
+					width = 45,
+				},
+			},
+		},
+	},
+	{
 		"pwntester/octo.nvim",
 		cmd = "Octo",
 		event = "VeryLazy",
+		keys = {
+			{
+				"<leader>op",
+				"<cmd>tabnew | Octo pr<cr>",
+				desc = "Octo: PR (new tab)",
+			},
+			{
+				"<leader>ol",
+				"<cmd>tabnew | Octo pr list<cr>",
+				desc = "Octo: PR list (new tab)",
+			},
+			{
+				"<leader>oP",
+				function()
+					local num = vim.fn.input("PR number: ")
+					if num == "" then
+						return
+					end
+					vim.cmd("tabnew | Octo pr edit " .. num)
+				end,
+				desc = "Octo: open PR by number (new tab)",
+			},
+		},
 		config = function()
 			require("octo").setup({
 				picker = "fzf-lua",

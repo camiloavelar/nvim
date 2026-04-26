@@ -2,24 +2,7 @@ local mapkey = require("util.keymapper").mapkey
 
 return {
 	{
-		"sindrets/diffview.nvim",
-		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory", "DiffviewToggleFiles", "DiffviewRefresh" },
-		opts = {
-			file_panel = {
-				listing_style = "tree",
-				tree_options = {
-					flatten_dirs = true,
-					folder_statuses = "only_folded",
-				},
-				win_config = {
-					position = "right",
-					width = 45,
-				},
-			},
-		},
-	},
-	{
-		"pwntester/octo.nvim",
+		dir = "~/projects/octo.nvim",
 		cmd = "Octo",
 		event = "VeryLazy",
 		keys = {
@@ -47,8 +30,29 @@ return {
 		},
 		config = function()
 			require("octo").setup({
+				mappings = {
+					file_panel = {
+						toggle_files = { lhs = "<leader>ee", desc = "toggle changed files panel" },
+						close_review_tab = { lhs = "<localleader>vc", desc = "close review tab" },
+					},
+					review_diff = {
+						toggle_files = { lhs = "<leader>ee", desc = "toggle changed files panel" },
+						close_review_tab = { lhs = "<localleader>vc", desc = "close review tab" },
+					},
+					review_thread = {
+						close_review_tab = { lhs = "<localleader>vc", desc = "close review tab" },
+					},
+					submit_win = {
+						close_review_tab = { lhs = "<localleader>vc", desc = "close review tab", mode = { "n" } },
+					},
+				},
 				picker = "fzf-lua",
 				enable_builtin = true,
+				file_panel = {
+					size = 45,
+					listing_style = "tree",
+					position = "right",
+				},
 			})
 		end,
 		dependencies = {

@@ -8,8 +8,13 @@ return {
 		keys = {
 			{
 				"<leader>op",
-				"<cmd>tabnew | Octo pr<cr>",
-				desc = "Octo: PR (new tab)",
+				"<cmd>Octo pr<cr>",
+				desc = "Octo: PR",
+			},
+			{
+				"<leader>or",
+				"<cmd>Octo review<cr>",
+				desc = "Octo: Review",
 			},
 			{
 				"<leader>ol",
@@ -48,6 +53,9 @@ return {
 				},
 				picker = "fzf-lua",
 				enable_builtin = true,
+				pull_requests = {
+					open_in_new_tab = true,
+				},
 				file_panel = {
 					size = 45,
 					listing_style = "tree",

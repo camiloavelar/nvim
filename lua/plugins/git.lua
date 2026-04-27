@@ -2,7 +2,8 @@ local mapkey = require("util.keymapper").mapkey
 
 return {
 	{
-		dir = "~/projects/octo.nvim",
+		-- dir = "~/projects/octo.nvim",
+		"camiloavelar/octo.nvim",
 		cmd = "Octo",
 		event = "VeryLazy",
 		keys = {

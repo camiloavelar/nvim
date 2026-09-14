@@ -72,6 +72,26 @@ return {
 				end,
 			})
 
+			-- gopls registers a file watcher for every go.work module plus `<root>/vendor`,
+			-- whether or not the directory exists. nvim reports each missing one with an
+			-- INFO notify ("watch.watch: ENOENT"), so filter them out before registration.
+			local register_capability = vim.lsp.handlers["client/registerCapability"]
+			vim.lsp.handlers["client/registerCapability"] = function(err, result, ctx, config)
+				for _, reg in ipairs(result and result.registrations or {}) do
+					if reg.method == "workspace/didChangeWatchedFiles" and reg.registerOptions then
+						reg.registerOptions.watchers = vim.tbl_filter(function(w)
+							local glob = w.globPattern
+							if type(glob) ~= "table" or not glob.baseUri then
+								return true
+							end
+							local uri = type(glob.baseUri) == "table" and glob.baseUri.uri or glob.baseUri
+							return vim.uv.fs_stat(vim.uri_to_fname(uri)) ~= nil
+						end, reg.registerOptions.watchers or {})
+					end
+				end
+				return register_capability(err, result, ctx, config)
+			end
+
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities =
 				vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))

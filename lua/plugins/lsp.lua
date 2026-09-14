@@ -10,16 +10,9 @@ return {
 			"catppuccin/nvim",
 		},
 		init = function()
-			-- FIXME: workaround for https://github.com/neovim/neovim/issues/28058
-			local make_client_capabilities = vim.lsp.protocol.make_client_capabilities
-			function vim.lsp.protocol.make_client_capabilities()
-				local caps = make_client_capabilities()
-				if caps.workspace then
-					caps.workspace.didChangeWatchedFiles = nil
-				end
-				return caps
-			end
-
+			-- octo:// buffers must never reach a language server. The LspAttach guard
+			-- below is not enough on its own: without this, gopls still spawns and stays
+			-- attached to the buffer. Measured, do not remove.
 			local orig_start = vim.lsp.start
 			vim.lsp.start = function(config, opts)
 				opts = opts or {}
@@ -93,7 +86,7 @@ return {
 
 			local servers = {}
 
-			servers.dcm = {}
+			servers.dcmls = {}
 			-- servers.golangci_lint_ls = {
 			-- 	filetypes = { "go", "gomod" },
 			-- 	cmd = { "golangci-lint-langserver" },
@@ -128,9 +121,9 @@ return {
 			servers.rust_analyzer = {}
 			servers.ts_ls = {}
 			servers.dockerls = {}
-			servers.buf = {}
+			servers.buf_ls = {}
 			servers.pylsp = {
-				filetypes = { "py", "tiltfile" },
+				filetypes = { "python", "tiltfile" },
 			}
 			servers.bashls = {
 				filetypes = { "sh", "aliasrc" },
@@ -159,12 +152,19 @@ return {
 
 			require("mason").setup()
 
-			local ensure_installed = vim.tbl_keys(servers or {})
+			-- mason-tool-installer maps lspconfig names to mason package names, but
+			-- only for servers mason-lspconfig knows about. These two it doesn't:
+			--   gopls  - installed via mise instead (mise's shim exports GOBIN, which
+			--            clobbers the GOBIN mason passes to `go install`)
+			--   dcmls  - no mapping in either direction; the package is named `dcm`
+			local unmanaged = { gopls = true, dcmls = true }
+			local ensure_installed = vim.tbl_filter(function(name)
+				return not unmanaged[name]
+			end, vim.tbl_keys(servers or {}))
 			vim.list_extend(ensure_installed, {
 				"stylua",
+				"dcm",
 			})
-
-			servers.buf_ls = {}
 
 			local _border = "rounded"
 
@@ -173,26 +173,26 @@ return {
 				float = { border = _border },
 			})
 
-			require("lspconfig.ui.windows").default_options.border = _border
+			-- automatic_enable turns on every installed mason package, including ones
+			-- with no entry in `servers` (jdtls). Setting capabilities on "*" covers
+			-- those too; vim.lsp.config merges it into each named config.
+			vim.lsp.config("*", { capabilities = capabilities })
+
+			-- mason-lspconfig v2 dropped `handlers`, so per-server settings go through
+			-- vim.lsp.config. Register them before setup() enables anything.
+			for server_name, server in pairs(servers) do
+				vim.lsp.config(server_name, server)
+			end
 
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "gopls" },
+				ensure_installed = { "lua_ls" },
 				automatic_enable = true,
-				automatic_installation = true,
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						-- This handles overriding only values explicitly passed
-						-- by the server configuration above. Useful when disabling
-						-- certain features of an LSP (for example, turning off formatting for tsserver)
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						-- Use vim.lsp.config with mason-lspconfig
-						local lspconfig = require("lspconfig")
-						lspconfig[server_name].setup(server)
-					end,
-				},
 			})
+
+			-- automatic_enable resolves mason package -> lspconfig name, which fails for
+			-- gopls (installed via mise, not mason) and dcmls (no mapping). Enable both.
+			vim.lsp.enable({ "gopls", "dcmls" })
 		end,
 	},
 	{ -- LuaLSP
@@ -215,7 +215,7 @@ return {
 			{
 				"<leader>ff",
 				function()
-					require("conform").format({ async = true, lsp_fallback = true })
+					require("conform").format({ async = true, lsp_format = "fallback" })
 				end,
 				mode = "",
 				desc = "[F]ormat buffer",
@@ -236,7 +236,7 @@ return {
 					if not vim.g.enable_autoformat then
 						return
 					end
-					return { timeout_ms = 500, lsp_fallback = true }
+					return { timeout_ms = 500, lsp_format = "fallback" }
 				end,
 			})
 			vim.api.nvim_create_user_command("FormatDisable", function()

@@ -1,5 +1,4 @@
 function PresentationMode()
-	require("lazy").load({ plugins = { "zenbones.nvim" } })
 	vim.cmd("set background=light")
 	vim.cmd("colorscheme zenbones")
 end
@@ -64,31 +63,6 @@ return {
 			require("catppuccin").setup({
 				transparent_background = true,
 				term_colors = false,
-				-- auto_integrations scans every installed plugin on each start (~12ms).
-				-- List what's actually in use instead.
-				auto_integrations = false,
-				integrations = {
-					blink_cmp = { style = "bordered" },
-					dadbod_ui = true,
-					dap = true,
-					dap_ui = true,
-					fzf = true,
-					gitsigns = true,
-					harpoon = true,
-					lsp_trouble = true,
-					mason = true,
-					native_lsp = { enabled = true },
-					noice = true,
-					notify = true,
-					nvimtree = true,
-					octo = true,
-					render_markdown = true,
-					snacks = true,
-					treesitter = true,
-					treesitter_context = true,
-					ufo = true,
-					which_key = true,
-				},
 				highlight_overrides = {
 					---@return { [string]: {} }
 					mocha = function(colors)
@@ -187,7 +161,7 @@ return {
 		-- If you don't want to install lush, make sure to set g:zenbones_compat = 1
 		-- In Vim, compat mode is turned on as Lush only works in Neovim.
 		dependencies = "rktjmp/lush.nvim",
-		lazy = true, -- pulled in by :PresentationMode
+		lazy = false,
 		-- you can set set configuration options here
 		-- config = function()
 		--     vim.g.zenbones_darken_comments = 45

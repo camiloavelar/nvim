@@ -1,7 +1,7 @@
 return {
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		event = "VeryLazy",
+		ft = { "markdown", "copilot-chat" },
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
 		config = function()
 			require("render-markdown").setup({
@@ -27,9 +27,21 @@ return {
 	{
 		"epwalsh/obsidian.nvim",
 		version = "*",
-		event = "VeryLazy",
 		ft = "markdown",
 		enabled = true,
+		cmd = { "ObsidianToday", "ObsidianNew", "ObsidianTomorrow", "ObsidianSearch", "ObsidianDailies", "ObsidianQuickSwitch" },
+		-- ft-scoped so <leader>or / <leader>ol only shadow octo's mappings inside markdown
+		keys = {
+			{ "<leader>ot", "<cmd>ObsidianToday<CR>", ft = "markdown", desc = "Obsidian: Today" },
+			{ "<leader>on", "<cmd>ObsidianNew<CR>", ft = "markdown", desc = "Obsidian: New" },
+			{ "<leader>oT", "<cmd>ObsidianTomorrow<CR>", ft = "markdown", desc = "Obsidian: Tomorrow" },
+			{ "<leader>os", "<cmd>ObsidianSearch<CR>", ft = "markdown", desc = "Obsidian: Search" },
+			{ "<leader>od", "<cmd>ObsidianDailies -7 1<CR>", ft = "markdown", desc = "Obsidian: Dailies" },
+			{ "<leader>of", "<cmd>ObsidianFollowLink<CR>", ft = "markdown", desc = "Obsidian: FollowLink" },
+			{ "<leader>or", "<cmd>ObsidianRename<CR>", ft = "markdown", desc = "Obsidian: Rename" },
+			{ "<leader>ol", "<cmd>ObsidianQuickSwitch<CR>", ft = "markdown", desc = "Obsidian: List" },
+			{ "<leader>ob", "<cmd>ObsidianBacklinks<CR>", ft = "markdown", desc = "Obsidian: List Backlinks" },
+		},
 		-- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
 		-- event = {
 		--   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
@@ -60,20 +72,6 @@ return {
 					min_chars = 2,
 				},
 			})
-
-			local map = function(keys, func, desc)
-				vim.keymap.set("n", keys, func, { desc = "Obsidian: " .. desc })
-			end
-
-			map("<leader>ot", "<cmd>ObsidianToday<CR>", "Today")
-			map("<leader>on", "<cmd>ObsidianNew<CR>", "New")
-			map("<leader>oT", "<cmd>ObsidianTomorrow<CR>", "Tomorrow")
-			map("<leader>os", "<cmd>ObsidianSearch<CR>", "Search")
-			map("<leader>od", "<cmd>ObsidianDailies -7 1<CR>", "Dailies")
-			map("<leader>of", "<cmd>ObsidianFollowLink<CR>", "FollowLink")
-			map("<leader>or", "<cmd>ObsidianRename<CR>", "Rename")
-			map("<leader>ol", "<cmd>ObsidianQuickSwitch<CR>", "List")
-			map("<leader>ob", "<cmd>ObsidianBacklinks<CR>", "List Backlinks")
 		end,
 	},
 }

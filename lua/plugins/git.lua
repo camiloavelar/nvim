@@ -5,7 +5,6 @@ return {
 		-- dir = "~/projects/octo.nvim",
 		"camiloavelar/octo.nvim",
 		cmd = "Octo",
-		event = "VeryLazy",
 		keys = {
 			{
 				"<leader>op",

@@ -3,7 +3,6 @@ local mapkey = require("util.keymapper").mapkey
 return {
 	{
 		"ibhagwan/fzf-lua",
-		event = "VimEnter",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		---@module "fzf-lua"
 		---@type fzf-lua.Config|{}

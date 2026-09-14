@@ -16,32 +16,28 @@ return {
 				enable = false,
 			},
 		})
-
-		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("go.nvim", { clear = true }),
-			pattern = "*.go",
-			callback = function(_)
-				require("config.diagnostics").setup()
-
-				local map = function(keys, func, desc)
-					vim.keymap.set("n", keys, func, { desc = "Go: " .. desc })
-				end
-
-				map("<leader>tf", "<cmd>GoTestFile -vF -C cov.out<CR>", "[T]est current [f]ile")
-				map("<leader>tc", "<cmd>GoCoverage -t<CR>", "[T]est current file with [C]overage")
-				map("<leader>tC", "<cmd>GoCoverage -f cov.out<CR>", "Load [T]est [C]overage file")
-				map("<leader>tF", "<cmd>GoTestFunc -vF -C cov.out<CR>", "[T]est current [F]unction")
-				map("<leader>ts", "<cmd>GoTestFunc -svF -C cov.out<CR>", "[T]est [s]elect functions")
-				map("<leader>tP", "<cmd>GoTestPkg -vF -C cov.out<CR>", "Test package")
-				map("<leader>fF", require("go.format").goimports, "[F]ormat buffer")
-				map("<leader>ge", "<cmd>GoIfErr<CR>", "Add If[E]rr")
-				map("<leader>gf", "<cmd>GoFillStruct<CR>", "[F]ill struct")
-				map("<leader>ga", "<cmd>GoAddTest<CR>", "[A]dd test")
-				map("<leader>gc", "<cmd>GoCmt<CR>", "[C]omment")
-			end,
-		})
 	end,
-	event = "VeryLazy",
 	ft = { "go", "gomod" },
+	-- Buffer-local to Go files; lazy sets these up without loading the plugin.
+	keys = {
+		{ "<leader>tf", "<cmd>GoTestFile -vF -C cov.out<CR>", ft = "go", desc = "Go: [T]est current [f]ile" },
+		{ "<leader>tc", "<cmd>GoCoverage -t<CR>", ft = "go", desc = "Go: [T]est current file with [C]overage" },
+		{ "<leader>tC", "<cmd>GoCoverage -f cov.out<CR>", ft = "go", desc = "Go: Load [T]est [C]overage file" },
+		{ "<leader>tF", "<cmd>GoTestFunc -vF -C cov.out<CR>", ft = "go", desc = "Go: [T]est current [F]unction" },
+		{ "<leader>ts", "<cmd>GoTestFunc -svF -C cov.out<CR>", ft = "go", desc = "Go: [T]est [s]elect functions" },
+		{ "<leader>tP", "<cmd>GoTestPkg -vF -C cov.out<CR>", ft = "go", desc = "Go: Test package" },
+		{
+			"<leader>fF",
+			function()
+				require("go.format").goimports()
+			end,
+			ft = "go",
+			desc = "Go: [F]ormat buffer",
+		},
+		{ "<leader>ge", "<cmd>GoIfErr<CR>", ft = "go", desc = "Go: Add If[E]rr" },
+		{ "<leader>gf", "<cmd>GoFillStruct<CR>", ft = "go", desc = "Go: [F]ill struct" },
+		{ "<leader>ga", "<cmd>GoAddTest<CR>", ft = "go", desc = "Go: [A]dd test" },
+		{ "<leader>gc", "<cmd>GoCmt<CR>", ft = "go", desc = "Go: [C]omment" },
+	},
 	build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
 }

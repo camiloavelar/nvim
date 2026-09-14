@@ -1,5 +1,4 @@
 vim.g.gitblame_display_virtual_text = 0 -- Disable virtual text
-local git_blame = require("gitblame")
 
 local lspStatus = {
 	function()
@@ -56,8 +55,12 @@ local config = function()
 			},
 			lualine_c = {
 				{
-					git_blame.get_current_blame_text,
-					cond = git_blame.is_blame_text_available,
+					function()
+						return require("gitblame").get_current_blame_text()
+					end,
+					cond = function()
+						return require("gitblame").is_blame_text_available()
+					end,
 					fmt = function(str, _)
 						local maxLength = 65
 						local strLen = string.len(str)
@@ -73,8 +76,12 @@ local config = function()
 			},
 			lualine_x = {
 				{
-					require("noice").api.statusline.mode.get,
-					cond = require("noice").api.statusline.mode.has,
+					function()
+						return require("noice").api.statusline.mode.get()
+					end,
+					cond = function()
+						return require("noice").api.statusline.mode.has()
+					end,
 					color = { fg = "#ff9e64" },
 				},
 				-- "encoding",

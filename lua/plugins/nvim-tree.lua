@@ -17,11 +17,16 @@ end
 
 return {
 	"nvim-tree/nvim-tree.lua",
-	lazy = false,
-	config = function()
+	cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeFindFile", "NvimTreeFindFileToggle", "NvimTreeCollapse" },
+	init = function()
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
-
+		-- `nvim <dir>` still needs the tree up front; every other launch waits for a command.
+		if vim.fn.argc(-1) == 1 and vim.fn.isdirectory(vim.fn.argv(0)) == 1 then
+			require("nvim-tree")
+		end
+	end,
+	config = function()
 		require("nvim-tree").setup({
 			on_attach = my_on_attach,
 			hijack_netrw = true,

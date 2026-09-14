@@ -1,7 +1,10 @@
 return {
 	{
 		"stevearc/oil.nvim",
-		event = "VeryLazy",
+		cmd = "Oil",
+		keys = {
+			{ "_", function() require("oil").toggle_float() end, desc = "Oil: toggle float" },
+		},
 		config = function()
 			local oil = require("oil")
 
@@ -28,7 +31,6 @@ return {
 					["<C-c>"] = "actions.close",
 				},
 			})
-			vim.keymap.set("n", "_", require("oil").toggle_float)
 		end,
 	},
 }

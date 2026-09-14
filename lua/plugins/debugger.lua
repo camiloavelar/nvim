@@ -6,7 +6,16 @@ return {
 		"leoluz/nvim-dap-go",
 		"theHamsta/nvim-dap-virtual-text",
 	},
-	event = "VeryLazy",
+	keys = {
+		{ "<leader>da", function() require("dap").toggle_breakpoint() end, desc = "Debugger: Toggle breakpoint" },
+		{ "<leader>dt", function() require("dap").terminate() end, desc = "Debugger: Terminate" },
+		{ "<leader>ds", function() require("dap").continue() end, desc = "Debugger: Continue/Start" },
+		{ "<leader>do", function() require("dap").step_over() end, desc = "Debugger: Step over" },
+		{ "<leader>di", function() require("dap").step_into() end, desc = "Debugger: Step into" },
+		{ "<leader>dv", function() require("dap").step_out() end, desc = "Debugger: Step out" },
+		{ "<leader>dc", function() require("dap").run_to_cursor() end, desc = "Debugger: Run to cursor" },
+		{ "<leader>?", function() require("dapui").eval(nil, { enter = true }) end, desc = "Debugger: Eval under cursor" },
+	},
 	config = function()
 		require("dap-go").setup({
 			dap_configurations = {
@@ -62,16 +71,5 @@ return {
 			"DapStopped",
 			{ text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" }
 		)
-
-		vim.keymap.set("n", "<leader>da", require("dap").toggle_breakpoint, { desc = "Debugger: Toggle breakpoint" })
-		vim.keymap.set("n", "<leader>dt", require("dap").terminate, { desc = "Debugger: Terminate" })
-		vim.keymap.set("n", "<leader>ds", require("dap").continue, { desc = "Debugger: Continue/Start" })
-		vim.keymap.set("n", "<leader>do", require("dap").step_over, { desc = "Debugger: Step over" })
-		vim.keymap.set("n", "<leader>di", require("dap").step_into, { desc = "Debugger: Step into" })
-		vim.keymap.set("n", "<leader>dv", require("dap").step_out, { desc = "Debugger: Step out" })
-		vim.keymap.set("n", "<leader>dc", require("dap").run_to_cursor, { desc = "Debugger: Run to cursor" })
-		vim.keymap.set("n", "<leader>?", function()
-			require("dapui").eval(nil, { enter = true })
-		end, { desc = "Debugger: Eval under cursor" })
 	end,
 }

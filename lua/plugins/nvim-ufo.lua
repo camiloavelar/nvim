@@ -3,7 +3,7 @@ return {
 	dependencies = {
 		"kevinhwang91/promise-async",
 	},
-	event = "VeryLazy",
+	event = { "BufReadPost", "BufNewFile" },
 	opts = {
 		open_fold_hl_timeout = 100,
 		close_fold_kinds_for_ft = {

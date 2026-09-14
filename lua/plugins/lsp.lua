@@ -184,7 +184,11 @@ return {
 				vim.lsp.config(server_name, server)
 			end
 
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+			require("mason-tool-installer").setup({
+				ensure_installed = ensure_installed,
+				start_delay = 3000, -- ms; keep the registry check off the startup path
+				debounce_hours = 24,
+			})
 			require("mason-lspconfig").setup({
 				ensure_installed = { "lua_ls" },
 				automatic_enable = true,

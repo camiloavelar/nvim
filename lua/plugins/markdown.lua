@@ -1,5 +1,34 @@
 return {
 	{
+		"3rd/image.nvim",
+		build = false, -- use the ImageMagick CLI instead of the magick luarock
+		lazy = true,
+		opts = {
+			processor = "magick_cli",
+			max_width_window_percentage = 80,
+			max_height_window_percentage = 50,
+			tmux_show_only_in_active_window = true,
+		},
+	},
+	{
+		"3rd/diagram.nvim",
+		ft = "markdown",
+		dependencies = { "3rd/image.nvim" },
+		opts = {
+			events = {
+				render_buffer = { "InsertLeave", "BufWinEnter", "TextChanged" },
+				clear_buffer = { "BufLeave" },
+			},
+			renderer_options = {
+				mermaid = {
+					theme = "dark",
+					background = "transparent",
+					scale = 2,
+				},
+			},
+		},
+	},
+	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		ft = { "markdown", "copilot-chat" },
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons

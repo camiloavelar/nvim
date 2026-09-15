@@ -42,15 +42,8 @@ vim.keymap.set("n", "<leader><leader>", function()
 	vim.cmd("so")
 end, { desc = "Source File" })
 
--- Pane and Window Navigation
-mapkey("<C-h>", "<C-w>h", "n") -- Navigate Left
-mapkey("<C-j>", "<C-w>j", "n") -- Navigate Down
-mapkey("<C-k>", "<C-w>k", "n") -- Navigate Up
-mapkey("<C-l>", "<C-w>l", "n") -- Navigate Right
-mapkey("<C-h>", "wincmd h", "t") -- Navigate Left
-mapkey("<C-j>", "wincmd j", "t") -- Navigate Down
-mapkey("<C-k>", "wincmd k", "t") -- Navigate Up
-mapkey("<C-l>", "wincmd l", "t") -- Navigate Right
+-- Pane and Window Navigation lives in plugins/herdr-nav.lua: <C-h/j/k/l> move
+-- between Neovim splits and cross into herdr panes at the edge.
 
 -- Window Management
 vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
